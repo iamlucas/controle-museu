@@ -5,7 +5,7 @@ Trabalho acadêmico em desenvolvimento para a matéria de Engenharia de Software
 
 Instituição: FATEC Zona Leste.
 
- ##Integrantes do Grupo
+ ## Integrantes do Grupo
  - André
  - Estevam Machado
  - Juliana Lopes
