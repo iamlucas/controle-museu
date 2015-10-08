@@ -1,15 +1,15 @@
 # Controle Museu
 Sistema para Controle de Visitantes e obras de um museu.
 
-Trabalho acadÃªmico em desenvolvimento para a matÃ©ria de Engenharia de Software II.
+Trabalho acadêmico em desenvolvimento para a matéria de Engenharia de Software II.
 
 InstituiÃ§Ã£o: FATEC Zona Leste.
 
- ## Integrantes do Grupo
- - AndrÃ©
+## Integrantes do Grupo
+ - André
  - Estevam Machado
  - Juliana Lopes
  - Lucas Carvalho
  - Paula Borges
- - [Rafael GonÃ§alves](https://github.com/rgoncalves94 "Rafael GonÃ§alves")
- - William de AraÃºjo Almeida
+ - [Rafael Gonçalves](https://github.com/rgoncalves94 "Rafael Gonçalves")
+ - William de Araújo Almeida
