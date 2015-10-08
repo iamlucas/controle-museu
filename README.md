@@ -3,7 +3,7 @@ Sistema para Controle de Visitantes e obras de um museu.
 
 Trabalho acadêmico em desenvolvimento para a matéria de Engenharia de Software II.
 
-InstituiÃ§Ã£o: FATEC Zona Leste.
+Instituição: FATEC Zona Leste.
 
 ## Integrantes do Grupo
  - André
