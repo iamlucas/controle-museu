@@ -1,4 +1,4 @@
-package view;
+package boundary;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import controller.LocalEmprestimoController;
-import model.LocalEmprestimo;
+import entity.LocalEmprestimoEntity;
 
 import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
@@ -29,7 +29,7 @@ import java.net.URL;
 
 import javax.swing.JTable;
 
-public class LocalEmprestimoView implements ActionListener {
+public class LocalEmprestimoBoundary implements ActionListener {
 
 	LocalEmprestimoController controllerJogo = new LocalEmprestimoController();
 
@@ -61,7 +61,7 @@ public class LocalEmprestimoView implements ActionListener {
 
 	JTable tableLocais = new JTable(controllerJogo);
 
-	public LocalEmprestimoView() {
+	public LocalEmprestimoBoundary() {
 
 		/*
 		 * Ajustando Paineis Iniciais
@@ -116,8 +116,9 @@ public class LocalEmprestimoView implements ActionListener {
 		/*
 		 * Botões
 		 */
-		Icon icone = new ImageIcon(getClass().getResource("/resource/save.png"));
-		icone.btnSalvar.setIcon(icone);
+
+		// ImageIcon(getClass().getResource("/resource/save.png"));
+		// btnSalvar.setIcon(icone);
 		panelButton.add(btnSalvar);
 		btnSalvar.addActionListener(this);
 
@@ -144,7 +145,7 @@ public class LocalEmprestimoView implements ActionListener {
 	public void actionPerformed(ActionEvent evento) {
 		String acao = evento.getActionCommand();
 		if ("Salvar".equals(acao)) {
-			LocalEmprestimo local = toLocal();
+			LocalEmprestimoEntity local = toLocal();
 			controllerJogo.adicionar(local);
 			JOptionPane.showMessageDialog(null, "Dados Cadastrados.");
 			limparCampos();
@@ -153,8 +154,8 @@ public class LocalEmprestimoView implements ActionListener {
 		}
 	}
 
-	public LocalEmprestimo toLocal() {
-		return new LocalEmprestimo();
+	public LocalEmprestimoEntity toLocal() {
+		return new LocalEmprestimoEntity();
 	}
 
 	public void limparCampos() {
@@ -162,6 +163,6 @@ public class LocalEmprestimoView implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		new LocalEmprestimoView();
+		new LocalEmprestimoBoundary();
 	}
 }

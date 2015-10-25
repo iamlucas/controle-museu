@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
+import entity.LocalEmprestimoEntity;
 import infrastructure.LocalEmprestimoDAO;
-import model.LocalEmprestimo;
 
 public class LocalEmprestimoController implements TableModel {
 
-	private List<LocalEmprestimo> locais = new ArrayList<LocalEmprestimo>();
+	private List<LocalEmprestimoEntity> locais = new ArrayList<LocalEmprestimoEntity>();
 
 	public LocalEmprestimoController() {
 		LocalEmprestimoDAO dao = new LocalEmprestimoDAO();
@@ -18,15 +18,92 @@ public class LocalEmprestimoController implements TableModel {
 		this.locais = dao.selectAll();
 	}
 
-	public void adicionar(LocalEmprestimo local) {
+	public static void main(String[] args) {
+		new LocalEmprestimoController().selecionarTodos();
+	}
+
+	public void adicionar(LocalEmprestimoEntity local) {
 		LocalEmprestimoDAO dao = new LocalEmprestimoDAO();
-		
-		dao.insert(local);
+
+		local.setNomeLocal("FATEC Zona Leste");
+		local.setEmail("teste@fatec.com.br");
+		local.setTelefone("(11) 99999-9999");
+		local.setResponsavel("Sr. Fatec");
+		local.setCep("03030-100");
+		local.setTipoLogradouro("Avenida");
+		local.setLogradouro("Aguia de Haia");
+		local.setBairro("Arthur Alvim");
+		local.setCidade("São Paulo");
+		local.setUf("SP");
+		local.setAtivo(true);
+
+		long id = dao.insert(local);
+	}
+
+	public void atualizar(LocalEmprestimoEntity local) {
+		LocalEmprestimoDAO dao = new LocalEmprestimoDAO();
+
+		local.setId(7);
+
+		local.setNomeLocal("FATEC Zona Sul");
+		local.setEmail("teste@fatec.com.br");
+		local.setTelefone("(11) 99999-9999");
+		local.setResponsavel("Sr. Fatec");
+		local.setCep("03030-100");
+		local.setTipoLogradouro("Avenida");
+		local.setLogradouro("Aiuga ed Aiah");
+		local.setBairro("Arthur Sulvim");
+		local.setCidade("São Paulo");
+		local.setUf("SP");
+		local.setAtivo(true);
+
+		int id = dao.update(local);
+
+		System.out.println(id);
+	}
+
+	public void deletar(LocalEmprestimoEntity local) {
+		LocalEmprestimoDAO dao = new LocalEmprestimoDAO();
+
+		local.setId(7);
+
+		int id = dao.delete(local.getId());
+
+		System.out.println(id);
+	}
+
+	public void selecionarPorId(LocalEmprestimoEntity local) {
+		LocalEmprestimoDAO dao = new LocalEmprestimoDAO();
+
+		local.setId(6);
+
+		LocalEmprestimoEntity loc = dao.selectById(local.getId());
+
+		System.out.println(loc.getNomeLocal());
+	}
+
+	public void selecionarPorNome(LocalEmprestimoEntity local) {
+		LocalEmprestimoDAO dao = new LocalEmprestimoDAO();
+
+		local.setNomeLocal("Sul");
+
+		List<LocalEmprestimoEntity> locs = dao.selectByName(local.getNomeLocal());
+
+		System.out.println(locs.get(0).getNomeLocal());
+	}
+
+	public void selecionarTodos() {
+		LocalEmprestimoDAO dao = new LocalEmprestimoDAO();
+
+		List<LocalEmprestimoEntity> locs = dao.selectAll();
+
+		for (LocalEmprestimoEntity l : locs)
+			System.out.println(l.getNomeLocal());
 	}
 
 	@Override
 	public Object getValueAt(int row, int col) {
-		LocalEmprestimo local = this.locais.get(row);
+		LocalEmprestimoEntity local = this.locais.get(row);
 		switch (col) {
 		case 0:
 			return local.getId();
@@ -43,7 +120,7 @@ public class LocalEmprestimoController implements TableModel {
 		case 6:
 			return local.getTipoLogradouro();
 		case 7:
-			return local.getNumLogradouro();
+			return local.getLogradouro();
 		case 8:
 			return local.getBairro();
 		case 9:
