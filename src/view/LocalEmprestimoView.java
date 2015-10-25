@@ -117,7 +117,7 @@ public class LocalEmprestimoView implements ActionListener {
 		 * Botões
 		 */
 		Icon icone = new ImageIcon(getClass().getResource("/resource/save.png"));
-		btnSalvar.setIcon(icone);
+		icone.btnSalvar.setIcon(icone);
 		panelButton.add(btnSalvar);
 		btnSalvar.addActionListener(this);
 
