@@ -13,92 +13,103 @@ public class LocalEmprestimoController implements TableModel {
 	private List<LocalEmprestimoEntity> locais = new ArrayList<LocalEmprestimoEntity>();
 
 	public LocalEmprestimoController() {
-		LocalEmprestimoDAO dao = new LocalEmprestimoDAO();
-
-		this.locais = dao.selectAll();
+		this.locais = this.selecionarTodos();
 	}
 
 	public static void main(String[] args) {
 		new LocalEmprestimoController().selecionarTodos();
 	}
 
-	public void adicionar(LocalEmprestimoEntity local) {
+	public long adicionar(LocalEmprestimoEntity local) {
 		LocalEmprestimoDAO dao = new LocalEmprestimoDAO();
-
-		local.setNomeLocal("FATEC Zona Leste");
-		local.setEmail("teste@fatec.com.br");
-		local.setTelefone("(11) 99999-9999");
-		local.setResponsavel("Sr. Fatec");
-		local.setCep("03030-100");
-		local.setTipoLogradouro("Avenida");
-		local.setLogradouro("Aguia de Haia");
-		local.setBairro("Arthur Alvim");
-		local.setCidade("São Paulo");
-		local.setUf("SP");
-		local.setAtivo(true);
 
 		long id = dao.insert(local);
+
+		return id;
 	}
 
-	public void atualizar(LocalEmprestimoEntity local) {
+	public String atualizar(LocalEmprestimoEntity local) {
 		LocalEmprestimoDAO dao = new LocalEmprestimoDAO();
-
-		local.setId(7);
-
-		local.setNomeLocal("FATEC Zona Sul");
-		local.setEmail("teste@fatec.com.br");
-		local.setTelefone("(11) 99999-9999");
-		local.setResponsavel("Sr. Fatec");
-		local.setCep("03030-100");
-		local.setTipoLogradouro("Avenida");
-		local.setLogradouro("Aiuga ed Aiah");
-		local.setBairro("Arthur Sulvim");
-		local.setCidade("São Paulo");
-		local.setUf("SP");
-		local.setAtivo(true);
-
-		int id = dao.update(local);
-
-		System.out.println(id);
-	}
-
-	public void deletar(LocalEmprestimoEntity local) {
-		LocalEmprestimoDAO dao = new LocalEmprestimoDAO();
-
-		local.setId(7);
-
-		int id = dao.delete(local.getId());
-
-		System.out.println(id);
-	}
-
-	public void selecionarPorId(LocalEmprestimoEntity local) {
-		LocalEmprestimoDAO dao = new LocalEmprestimoDAO();
-
-		local.setId(6);
 
 		LocalEmprestimoEntity loc = dao.selectById(local.getId());
 
-		System.out.println(loc.getNomeLocal());
+		if (local.getNomeLocal() != "" && local.getNomeLocal() != null)
+			loc.setNomeLocal(local.getNomeLocal());
+
+		if (local.getEmail() != "" && local.getEmail() != null)
+			loc.setEmail(local.getEmail());
+
+		if (local.getTelefone() != "" && local.getTelefone() != null)
+			loc.setTelefone(local.getTelefone());
+
+		if (local.getResponsavel() != "" && local.getResponsavel() != null)
+			loc.setResponsavel(local.getResponsavel());
+
+		if (local.getCep() != "" && local.getCep() != null)
+			loc.setCep(local.getCep());
+
+		if (local.getTipoLogradouro() != "" && local.getTipoLogradouro() != null)
+			loc.setTipoLogradouro(local.getTipoLogradouro());
+
+		if (local.getLogradouro() != "" && local.getLogradouro() != null)
+			loc.setLogradouro(local.getLogradouro());
+
+		if (local.getNomeLocal() != "" && local.getNomeLocal() != null)
+			loc.setBairro(local.getBairro());
+
+		if (local.getCidade() != "" && local.getCidade() != null)
+			loc.setCidade(local.getCidade());
+
+		if (local.getUf() != "" && local.getUf() != null)
+			loc.setUf(local.getUf());
+
+		loc.setAtivo(local.isAtivo());
+
+		int rowsAffected = dao.update(loc);
+
+		String msg = "Falha na alteração do registro.";
+		if (rowsAffected == 1) {
+			msg = "Registro alterado com sucesso!";
+		}
+
+		return msg;
 	}
 
-	public void selecionarPorNome(LocalEmprestimoEntity local) {
+	public String deletar(LocalEmprestimoEntity local) {
 		LocalEmprestimoDAO dao = new LocalEmprestimoDAO();
+		int rowsAffected = 0;
+		if (local.getId() > 0)
+			rowsAffected = dao.delete(local.getId());
 
-		local.setNomeLocal("Sul");
+		String msg = "Falha na exclusão do registro.";
+		if (rowsAffected == 1) {
+			msg = "Registro excluído com sucesso!";
+		}
 
-		List<LocalEmprestimoEntity> locs = dao.selectByName(local.getNomeLocal());
-
-		System.out.println(locs.get(0).getNomeLocal());
+		return msg;
 	}
 
-	public void selecionarTodos() {
+	public LocalEmprestimoEntity selecionarPorId(LocalEmprestimoEntity local) {
 		LocalEmprestimoDAO dao = new LocalEmprestimoDAO();
 
-		List<LocalEmprestimoEntity> locs = dao.selectAll();
+		if (local.getId() > 0)
+			local = dao.selectById(local.getId());
 
-		for (LocalEmprestimoEntity l : locs)
-			System.out.println(l.getNomeLocal());
+		return local;
+	}
+
+	public List<LocalEmprestimoEntity> selecionarPorNome(LocalEmprestimoEntity local) {
+		LocalEmprestimoDAO dao = new LocalEmprestimoDAO();
+
+		return dao.selectByName(local.getNomeLocal());
+
+	}
+
+	public List<LocalEmprestimoEntity> selecionarTodos() {
+		LocalEmprestimoDAO dao = new LocalEmprestimoDAO();
+
+		return dao.selectAll();
+
 	}
 
 	@Override

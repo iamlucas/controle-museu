@@ -9,6 +9,8 @@ public class LocalEmprestimoEntity {
 	private String cep;
 	private String tipoLogradouro;
 	private String logradouro;
+	private String numero;
+	private String complemento;
 	private String bairro;
 	private String cidade;
 	private String uf;
@@ -80,6 +82,22 @@ public class LocalEmprestimoEntity {
 
 	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
 	}
 
 	public String getBairro() {

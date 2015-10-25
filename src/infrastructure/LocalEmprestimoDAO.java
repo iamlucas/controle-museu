@@ -16,7 +16,7 @@ public class LocalEmprestimoDAO {
 
 			Connection con = JDBCUtil.getConnection();
 
-			String query = "INSERT INTO `local_emprestimo` (`local_emprestimo_nome`, `local_emprestimo_email`, `local_emprestimo_telefone`, `local_emprestimo_responsavel`, `local_emprestimo_cep`, `local_emprestimo_tipo_logradouro`, `local_emprestimo_logradouro`, `local_emprestimo_bairro`, `local_emprestimo_cidade`, `local_emprestimo_uf`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			String query = "INSERT INTO `local_emprestimo` (`local_emprestimo_nome`, `local_emprestimo_email`, `local_emprestimo_telefone`, `local_emprestimo_responsavel`, `local_emprestimo_cep`, `local_emprestimo_tipo_logradouro`, `local_emprestimo_logradouro`, `local_emprestimo_numero`, `local_emprestimo_complemento`, `local_emprestimo_bairro`, `local_emprestimo_cidade`, `local_emprestimo_uf`, `local_emprestimo_ativo`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 			PreparedStatement stmt = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
 
@@ -27,9 +27,12 @@ public class LocalEmprestimoDAO {
 			stmt.setString(5, local.getCep());
 			stmt.setString(6, local.getTipoLogradouro());
 			stmt.setString(7, local.getLogradouro());
-			stmt.setString(8, local.getBairro());
-			stmt.setString(9, local.getCidade());
-			stmt.setString(10, local.getUf());
+			stmt.setString(8, local.getNumero());
+			stmt.setString(9, local.getComplemento());
+			stmt.setString(10, local.getBairro());
+			stmt.setString(11, local.getCidade());
+			stmt.setString(12, local.getUf());
+			stmt.setBoolean(13, local.isAtivo());
 
 			stmt.executeUpdate();
 
@@ -51,7 +54,7 @@ public class LocalEmprestimoDAO {
 
 			Connection con = JDBCUtil.getConnection();
 
-			String query = "UPDATE `local_emprestimo` SET `local_emprestimo_nome`=?, `local_emprestimo_email`=?, `local_emprestimo_telefone`=?, `local_emprestimo_responsavel`=?, `local_emprestimo_cep`=?, `local_emprestimo_tipo_logradouro`=?, `local_emprestimo_logradouro`=?, `local_emprestimo_bairro`=?, `local_emprestimo_cidade`=?, `local_emprestimo_uf`=?, `local_emprestimo_ativo`=? WHERE `local_emprestimo_id`=?;";
+			String query = "UPDATE `local_emprestimo` SET `local_emprestimo_nome`=?, `local_emprestimo_email`=?, `local_emprestimo_telefone`=?, `local_emprestimo_responsavel`=?, `local_emprestimo_cep`=?, `local_emprestimo_tipo_logradouro`=?, `local_emprestimo_logradouro`=?, `local_emprestimo_numero`=?, `local_emprestimo_complemento`=?, `local_emprestimo_bairro`=?, `local_emprestimo_cidade`=?, `local_emprestimo_uf`=?, `local_emprestimo_ativo`=? WHERE `local_emprestimo_id`=?;";
 
 			PreparedStatement stmt = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
 
@@ -62,12 +65,14 @@ public class LocalEmprestimoDAO {
 			stmt.setString(5, local.getCep());
 			stmt.setString(6, local.getTipoLogradouro());
 			stmt.setString(7, local.getLogradouro());
-			stmt.setString(8, local.getBairro());
-			stmt.setString(9, local.getCidade());
-			stmt.setString(10, local.getUf());
-			stmt.setBoolean(11, local.isAtivo());
+			stmt.setString(8, local.getNumero());
+			stmt.setString(9, local.getComplemento());
+			stmt.setString(10, local.getBairro());
+			stmt.setString(11, local.getCidade());
+			stmt.setString(12, local.getUf());
+			stmt.setBoolean(13, local.isAtivo());
 
-			stmt.setLong(12, local.getId());
+			stmt.setLong(14, local.getId());
 
 			affectedRows = stmt.executeUpdate();
 
@@ -85,7 +90,7 @@ public class LocalEmprestimoDAO {
 
 			Connection con = JDBCUtil.getConnection();
 
-			String query = "DELETE FROM `local_emprestimo` WHERE  `local_emprestimo_id`=?;";
+			String query = "DELETE FROM `local_emprestimo` WHERE `local_emprestimo_id`=?;";
 
 			PreparedStatement stmt = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
 
@@ -121,6 +126,8 @@ public class LocalEmprestimoDAO {
 				local.setCep(rs.getString("local_emprestimo_cep"));
 				local.setTipoLogradouro(rs.getString("local_emprestimo_tipo_logradouro"));
 				local.setLogradouro(rs.getString("local_emprestimo_logradouro"));
+				local.setNumero(rs.getString("local_emprestimo_numero"));
+				local.setComplemento(rs.getString("local_emprestimo_complemento"));
 				local.setBairro(rs.getString("local_emprestimo_bairro"));
 				local.setCidade(rs.getString("local_emprestimo_cidade"));
 				local.setUf(rs.getString("local_emprestimo_uf"));
@@ -155,6 +162,8 @@ public class LocalEmprestimoDAO {
 				local.setCep(rs.getString("local_emprestimo_cep"));
 				local.setTipoLogradouro(rs.getString("local_emprestimo_tipo_logradouro"));
 				local.setLogradouro(rs.getString("local_emprestimo_logradouro"));
+				local.setNumero(rs.getString("local_emprestimo_numero"));
+				local.setComplemento(rs.getString("local_emprestimo_complemento"));
 				local.setBairro(rs.getString("local_emprestimo_bairro"));
 				local.setCidade(rs.getString("local_emprestimo_cidade"));
 				local.setUf(rs.getString("local_emprestimo_uf"));
@@ -188,6 +197,8 @@ public class LocalEmprestimoDAO {
 				local.setCep(rs.getString("local_emprestimo_cep"));
 				local.setTipoLogradouro(rs.getString("local_emprestimo_tipo_logradouro"));
 				local.setLogradouro(rs.getString("local_emprestimo_logradouro"));
+				local.setNumero(rs.getString("local_emprestimo_numero"));
+				local.setComplemento(rs.getString("local_emprestimo_complemento"));
 				local.setBairro(rs.getString("local_emprestimo_bairro"));
 				local.setCidade(rs.getString("local_emprestimo_cidade"));
 				local.setUf(rs.getString("local_emprestimo_uf"));
