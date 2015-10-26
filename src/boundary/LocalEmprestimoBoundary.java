@@ -8,8 +8,10 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 import controller.LocalEmprestimoController;
 import entity.LocalEmprestimoEntity;
@@ -28,6 +30,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.swing.JTable;
@@ -46,7 +49,7 @@ public class LocalEmprestimoBoundary implements ActionListener {
 	JTextField txtEmail = new JTextField();
 	JTextField txtTelefone = new JTextField();
 	JTextField txtResponsavel = new JTextField();
-	JTextField txtCep = new JTextField();
+	JFormattedTextField txtCep = new JFormattedTextField();
 	String optionsTipoLogradouro[] = { "Rua", "Avenida" };
 	JComboBox cmbTipoLogradouro = new JComboBox(optionsTipoLogradouro);
 	JTextField txtLogradouro = new JTextField();
@@ -54,7 +57,8 @@ public class LocalEmprestimoBoundary implements ActionListener {
 	JTextField txtComplemento = new JTextField();
 	JTextField txtBairro = new JTextField();
 	JTextField txtCidade = new JTextField();
-	JTextField txtUf = new JTextField();
+	String optionsUf[] = { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"};
+	JComboBox cmbUf = new JComboBox(optionsUf);
 
 	JPanel panelRadioButton = new JPanel();
 	JRadioButton radioAtivo = new JRadioButton("Ativado");
@@ -68,19 +72,41 @@ public class LocalEmprestimoBoundary implements ActionListener {
 	JTable tableLocais = new JTable(controllerLocal);
 
 	public LocalEmprestimoBoundary() {
-
+		
+		cmbUf.setSelectedItem("SP");
+		radioAtivo.setSelected(true);
+		radioDesativado.setSelected(false);
+		
 		/*
 		 * Ajustando Paineis Iniciais
 		 */
 		panelPrincipal.setLayout(new BorderLayout());
 		panelButton.setLayout(new GridLayout(1, 4));
-		panelForm.setLayout(new GridLayout(14, 2));
+		GridLayout formGridLayout = new GridLayout(14, 2);
+		formGridLayout.setVgap(3);
+		panelForm.setLayout(formGridLayout);
 		JPanel panelBorderLayout = new JPanel();
 		panelBorderLayout.setLayout(new BorderLayout());
 		panelBorderLayout.add(panelForm, BorderLayout.CENTER);
 		panelPrincipal.add(panelBorderLayout, BorderLayout.CENTER);
 		panelPrincipal.add(panelButton, BorderLayout.SOUTH);
 
+		/*
+		 * Mascaras 
+		 */
+		
+		try {
+			MaskFormatter maskCep = new MaskFormatter("#####-###");
+			
+			maskCep.setPlaceholderCharacter('_');
+			maskCep.install(txtCep);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 		/*
 		 * Painel de Formulário
 		 */
@@ -109,7 +135,7 @@ public class LocalEmprestimoBoundary implements ActionListener {
 		panelForm.add(new JLabel("Cidade:"));
 		panelForm.add(txtCidade);
 		panelForm.add(new JLabel("UF:"));
-		panelForm.add(txtUf);
+		panelForm.add(cmbUf);
 
 		panelForm.add(new JLabel("Status"));
 		panelRadioButton.setLayout(new BorderLayout());
@@ -145,7 +171,7 @@ public class LocalEmprestimoBoundary implements ActionListener {
 		 * Show JFrame
 		 */
 		frameJogo.setContentPane(panelPrincipal);
-		frameJogo.setSize(700, 500);
+		frameJogo.setSize(500, 500);
 		frameJogo.setVisible(true);
 		frameJogo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frameJogo.setResizable(false);
@@ -241,7 +267,7 @@ public class LocalEmprestimoBoundary implements ActionListener {
 		local.setComplemento(txtComplemento.getText());
 		local.setBairro(txtBairro.getText());
 		local.setCidade(txtCidade.getText());
-		local.setUf(txtUf.getText());
+		local.setUf(optionsUf[cmbUf.getSelectedIndex()]);
 		if (radioAtivo.isSelected()) {
 			local.setAtivo(true);
 		} else {
@@ -264,7 +290,7 @@ public class LocalEmprestimoBoundary implements ActionListener {
 		txtComplemento.setText(local.getComplemento());
 		txtBairro.setText(local.getBairro());
 		txtCidade.setText(local.getCidade());
-		txtUf.setText(local.getUf());
+		cmbUf.setSelectedItem(local.getUf());
 		if (local.isAtivo()) {
 			radioAtivo.setSelected(true);
 			radioDesativado.setSelected(false);
@@ -287,7 +313,7 @@ public class LocalEmprestimoBoundary implements ActionListener {
 		txtComplemento.setText("");
 		txtBairro.setText("");
 		txtCidade.setText("");
-		txtUf.setText("");
+		cmbUf.setSelectedItem("SP");
 		radioAtivo.setSelected(true);
 	}
 
