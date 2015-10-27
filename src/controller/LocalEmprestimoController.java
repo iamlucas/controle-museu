@@ -2,6 +2,8 @@ package controller;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
@@ -32,35 +34,36 @@ public class LocalEmprestimoController implements TableModel {
 		LocalEmprestimoDAO dao = new LocalEmprestimoDAO();
 
 		LocalEmprestimoEntity loc = dao.selectById(local.getId());
+		System.out.println(local.getId());
 
-		if (local.getNomeLocal() != "" && local.getNomeLocal() != null)
+		if (!local.getNomeLocal().equals("") && local.getNomeLocal() != null)
 			loc.setNomeLocal(local.getNomeLocal());
 
-		if (local.getEmail() != "" && local.getEmail() != null)
+		if (!local.getEmail().equals("") && local.getEmail() != null)
 			loc.setEmail(local.getEmail());
 
-		if (local.getTelefone() != "" && local.getTelefone() != null)
+		if (!local.getTelefone().equals("") && local.getTelefone() != null)
 			loc.setTelefone(local.getTelefone());
 
-		if (local.getResponsavel() != "" && local.getResponsavel() != null)
+		if (!local.getResponsavel().equals("") && local.getResponsavel() != null)
 			loc.setResponsavel(local.getResponsavel());
 
-		if (local.getCep() != "" && local.getCep() != null)
+		if (!local.getCep().equals("") && local.getCep() != null)
 			loc.setCep(local.getCep());
 
-		if (local.getTipoLogradouro() != "" && local.getTipoLogradouro() != null)
+		if (!local.getTipoLogradouro().equals("") && local.getTipoLogradouro() != null)
 			loc.setTipoLogradouro(local.getTipoLogradouro());
 
-		if (local.getLogradouro() != "" && local.getLogradouro() != null)
+		if (!local.getLogradouro().equals("") && local.getLogradouro() != null)
 			loc.setLogradouro(local.getLogradouro());
 
-		if (local.getNomeLocal() != "" && local.getNomeLocal() != null)
+		if (!local.getNomeLocal().equals("") && local.getNomeLocal() != null)
 			loc.setBairro(local.getBairro());
 
-		if (local.getCidade() != "" && local.getCidade() != null)
+		if (!local.getCidade().equals("") && local.getCidade() != null)
 			loc.setCidade(local.getCidade());
 
-		if (local.getUf() != "" && local.getUf() != null)
+		if (!local.getUf().equals("") && local.getUf() != null)
 			loc.setUf(local.getUf());
 
 		loc.setAtivo(local.isAtivo());
@@ -112,6 +115,14 @@ public class LocalEmprestimoController implements TableModel {
 
 	}
 
+	public List<LocalEmprestimoEntity> getLocais() {
+		return locais;
+	}
+
+	public void setLocais(List<LocalEmprestimoEntity> locais) {
+		this.locais = locais;
+	}
+
 	@Override
 	public Object getValueAt(int row, int col) {
 		LocalEmprestimoEntity local = this.locais.get(row);
@@ -146,7 +157,7 @@ public class LocalEmprestimoController implements TableModel {
 
 	@Override
 	public int getColumnCount() {
-		return 6;
+		return 4;
 	}
 
 	@Override
@@ -187,6 +198,7 @@ public class LocalEmprestimoController implements TableModel {
 
 	@Override
 	public void addTableModelListener(TableModelListener l) {
+
 	}
 
 	@Override

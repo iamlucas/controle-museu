@@ -39,7 +39,7 @@ public class LocalEmprestimoBoundary implements ActionListener {
 
 	LocalEmprestimoController controllerLocal = new LocalEmprestimoController();
 
-	JFrame frameJogo = new JFrame("Locais - Sistema de Controle de Museu");
+	JFrame frameLocal = new JFrame("Locais - Sistema de Controle de Museu");
 	JPanel panelPrincipal = new JPanel();
 	JPanel panelButton = new JPanel();
 	JPanel panelForm = new JPanel();
@@ -47,7 +47,7 @@ public class LocalEmprestimoBoundary implements ActionListener {
 	JTextField txtId = new JTextField();
 	JTextField txtNomeLocal = new JTextField();
 	JTextField txtEmail = new JTextField();
-	JTextField txtTelefone = new JTextField();
+	JFormattedTextField txtTelefone = new JFormattedTextField();
 	JTextField txtResponsavel = new JTextField();
 	JFormattedTextField txtCep = new JFormattedTextField();
 	String optionsTipoLogradouro[] = { "Rua", "Avenida" };
@@ -57,7 +57,8 @@ public class LocalEmprestimoBoundary implements ActionListener {
 	JTextField txtComplemento = new JTextField();
 	JTextField txtBairro = new JTextField();
 	JTextField txtCidade = new JTextField();
-	String optionsUf[] = { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"};
+	String optionsUf[] = { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB",
+			"PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" };
 	JComboBox cmbUf = new JComboBox(optionsUf);
 
 	JPanel panelRadioButton = new JPanel();
@@ -71,12 +72,22 @@ public class LocalEmprestimoBoundary implements ActionListener {
 
 	JTable tableLocais = new JTable(controllerLocal);
 
+	public LocalEmprestimoBoundary(LocalEmprestimoEntity l) {
+		init();
+		if (l.getId() > 0) {
+			toForm(l);
+		}
+	}
+
 	public LocalEmprestimoBoundary() {
-		
+		this(new LocalEmprestimoEntity());
+	}
+
+	public void init() {
 		cmbUf.setSelectedItem("SP");
 		radioAtivo.setSelected(true);
 		radioDesativado.setSelected(false);
-		
+
 		/*
 		 * Ajustando Paineis Iniciais
 		 */
@@ -92,21 +103,22 @@ public class LocalEmprestimoBoundary implements ActionListener {
 		panelPrincipal.add(panelButton, BorderLayout.SOUTH);
 
 		/*
-		 * Mascaras 
+		 * Mascaras
 		 */
-		
+
 		try {
 			MaskFormatter maskCep = new MaskFormatter("#####-###");
-			
 			maskCep.setPlaceholderCharacter('_');
 			maskCep.install(txtCep);
+
+			MaskFormatter maskTelefone = new MaskFormatter("(##) ####-#####");
+			maskTelefone.setPlaceholderCharacter('_');
+			maskTelefone.install(txtTelefone);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
+
 		/*
 		 * Painel de Formulário
 		 */
@@ -170,11 +182,11 @@ public class LocalEmprestimoBoundary implements ActionListener {
 		/*
 		 * Show JFrame
 		 */
-		frameJogo.setContentPane(panelPrincipal);
-		frameJogo.setSize(500, 500);
-		frameJogo.setVisible(true);
-		frameJogo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frameJogo.setResizable(false);
+		frameLocal.setContentPane(panelPrincipal);
+		frameLocal.setSize(500, 500);
+		frameLocal.setVisible(true);
+		frameLocal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frameLocal.setResizable(false);
 	}
 
 	@Override
@@ -203,7 +215,7 @@ public class LocalEmprestimoBoundary implements ActionListener {
 	}
 
 	private void alterarAction() {
-		if (txtId.getText() == "") {
+		if (txtId.getText().equals("")) {
 			JOptionPane.showMessageDialog(null,
 					"Realize a Pesquisa do local ou preencha com uma identificação válida.");
 			return;
@@ -225,11 +237,12 @@ public class LocalEmprestimoBoundary implements ActionListener {
 
 		int retorno = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja deletar o registro?");
 
-		if (retorno == 1)
+		if (retorno != 0)
 			return;
 
 		String msg = controllerLocal.deletar(toLocalEmprestimo());
 		JOptionPane.showMessageDialog(null, msg);
+		limparCampos();
 		tableLocais.revalidate();
 		tableLocais.repaint();
 
@@ -255,7 +268,11 @@ public class LocalEmprestimoBoundary implements ActionListener {
 
 	public LocalEmprestimoEntity toLocalEmprestimo() {
 		LocalEmprestimoEntity local = new LocalEmprestimoEntity();
-		local.setId(Long.parseLong(txtId.getText()));
+		long identificacao = 0;
+		if (!txtId.getText().equals("")) {
+			identificacao = Long.parseLong(txtId.getText());
+		}
+		local.setId(identificacao);
 		local.setNomeLocal(txtNomeLocal.getText());
 		local.setEmail(txtEmail.getText());
 		local.setTelefone(txtTelefone.getText());

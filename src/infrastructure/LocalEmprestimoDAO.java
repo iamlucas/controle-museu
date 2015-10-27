@@ -57,7 +57,6 @@ public class LocalEmprestimoDAO {
 			String query = "UPDATE `local_emprestimo` SET `local_emprestimo_nome`=?, `local_emprestimo_email`=?, `local_emprestimo_telefone`=?, `local_emprestimo_responsavel`=?, `local_emprestimo_cep`=?, `local_emprestimo_tipo_logradouro`=?, `local_emprestimo_logradouro`=?, `local_emprestimo_numero`=?, `local_emprestimo_complemento`=?, `local_emprestimo_bairro`=?, `local_emprestimo_cidade`=?, `local_emprestimo_uf`=?, `local_emprestimo_ativo`=? WHERE `local_emprestimo_id`=?;";
 
 			PreparedStatement stmt = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
-
 			stmt.setString(1, local.getNomeLocal());
 			stmt.setString(2, local.getEmail());
 			stmt.setString(3, local.getTelefone());
@@ -121,7 +120,7 @@ public class LocalEmprestimoDAO {
 				local.setId(rs.getLong("local_emprestimo_id"));
 				local.setNomeLocal(rs.getString("local_emprestimo_nome"));
 				local.setEmail(rs.getString("local_emprestimo_email"));
-				local.setTelefone(rs.getString("local_emprestimo_nome"));
+				local.setTelefone(rs.getString("local_emprestimo_telefone"));
 				local.setResponsavel(rs.getString("local_emprestimo_responsavel"));
 				local.setCep(rs.getString("local_emprestimo_cep"));
 				local.setTipoLogradouro(rs.getString("local_emprestimo_tipo_logradouro"));
@@ -157,7 +156,7 @@ public class LocalEmprestimoDAO {
 				local.setId(rs.getLong("local_emprestimo_id"));
 				local.setNomeLocal(rs.getString("local_emprestimo_nome"));
 				local.setEmail(rs.getString("local_emprestimo_email"));
-				local.setTelefone(rs.getString("local_emprestimo_nome"));
+				local.setTelefone(rs.getString("local_emprestimo_telefone"));
 				local.setResponsavel(rs.getString("local_emprestimo_responsavel"));
 				local.setCep(rs.getString("local_emprestimo_cep"));
 				local.setTipoLogradouro(rs.getString("local_emprestimo_tipo_logradouro"));
@@ -192,7 +191,7 @@ public class LocalEmprestimoDAO {
 				local.setId(rs.getLong("local_emprestimo_id"));
 				local.setNomeLocal(rs.getString("local_emprestimo_nome"));
 				local.setEmail(rs.getString("local_emprestimo_email"));
-				local.setTelefone(rs.getString("local_emprestimo_nome"));
+				local.setTelefone(rs.getString("local_emprestimo_telefone"));
 				local.setResponsavel(rs.getString("local_emprestimo_responsavel"));
 				local.setCep(rs.getString("local_emprestimo_cep"));
 				local.setTipoLogradouro(rs.getString("local_emprestimo_tipo_logradouro"));
