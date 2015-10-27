@@ -37,6 +37,7 @@ public class ListaLocalBoundary implements ActionListener, MouseListener {
 
 	JTextField txtNomeLocal = new JTextField();
 	JButton btnBuscaLocais = new JButton("Pesquisar Local");
+	JButton btnNovoLocal = new JButton("Novo Local");
 
 	LocalEmprestimoController controllerLocal = new LocalEmprestimoController();
 
@@ -49,25 +50,33 @@ public class ListaLocalBoundary implements ActionListener, MouseListener {
 
 	public void init() {
 		panelPrincipal.setLayout(new BorderLayout());
-		panelBottom.setLayout(new GridLayout(1, 4));
+		panelBottom.setLayout(new GridLayout(1,1));
 		panelTop.setLayout(new GridLayout(1, 2));
 		panelPrincipal.add(panelTop, BorderLayout.NORTH);
 		panelPrincipal.add(panelTable, BorderLayout.CENTER);
 		panelPrincipal.add(panelBottom, BorderLayout.SOUTH);
 
-		JPanel panelCampoTop = new JPanel();
-		panelCampoTop.setLayout(new GridLayout(1, 2));
 		JLabel lblCampo = new JLabel("Pesquise pelo nome:");
 		lblCampo.setFont(new Font("Calibri", 1, 18));
-		panelCampoTop.add(lblCampo);
 		txtNomeLocal.setFont(new Font("Calibri", 0, 18));
-		txtNomeLocal.setPreferredSize(new Dimension(0, 30));
-		panelCampoTop.add(txtNomeLocal);
-		panelTop.setLayout(new GridLayout(1, 2));
-		panelTop.add(panelCampoTop);
+		txtNomeLocal.setPreferredSize(new Dimension(300, 30));
 		btnBuscaLocais.setFont(new Font("Calibri", 1, 18));
 		btnBuscaLocais.setPreferredSize(new Dimension(30, 30));
-		panelTop.add(btnBuscaLocais);
+		btnNovoLocal.setFont(new Font("Calibri", 1, 18));
+		btnNovoLocal.setPreferredSize(new Dimension(30, 30));
+		
+		JPanel panelCampoTopRight = new JPanel();
+		JPanel panelCampoTopLeft = new JPanel();
+		panelCampoTopRight.setLayout(new GridLayout(1, 2));
+		panelCampoTopLeft.setLayout(new GridLayout(1, 2));
+		panelCampoTopRight.add(lblCampo);
+		panelCampoTopRight.add(txtNomeLocal);
+		panelCampoTopLeft.add(btnBuscaLocais);
+		panelCampoTopLeft.add(btnNovoLocal);
+		panelTop.setLayout(new GridLayout(1, 2));
+		panelTop.add(panelCampoTopRight);
+		panelTop.add(panelCampoTopLeft);
+		
 
 		JLabel lblLegenda = new JLabel("Para abrir o formulário, dê o duplo clique na linha de Registro.");
 		lblLegenda.setFont(new Font("Calibri", 1, 18));
@@ -91,6 +100,7 @@ public class ListaLocalBoundary implements ActionListener, MouseListener {
 		frameLista.setResizable(false);
 
 		btnBuscaLocais.addActionListener(this);
+		btnNovoLocal.addActionListener(this);
 
 		tableLocais.addMouseListener(this);
 	}
@@ -100,8 +110,33 @@ public class ListaLocalBoundary implements ActionListener, MouseListener {
 		String acao = evento.getActionCommand();
 		if ("Pesquisar Local".equals(acao)) {
 			this.pesquisarAction();
+		}else if ("Novo Local".equals(acao)) {
+			this.novoLocalAction();
+		}
+		
+
+	}
+	
+	private void pesquisarAction() {
+		if (txtNomeLocal.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Preencha o Nome do local e clique em Pesquisar");
+			txtNomeLocal.setBackground(Color.YELLOW);
+			return;
 		}
 
+		LocalEmprestimoEntity local = new LocalEmprestimoEntity();
+
+		local.setNomeLocal(txtNomeLocal.getText());
+
+		controllerLocal.setLocais(controllerLocal.selecionarPorNome(local));
+		tableLocais.revalidate();
+		tableLocais.repaint();
+	}
+	
+	private void novoLocalAction(){
+		if (this.formLocal != null)
+			this.formLocal.frameLocal.setVisible(false);
+		this.formLocal = new LocalEmprestimoBoundary();
 	}
 
 	@Override
@@ -151,22 +186,6 @@ public class ListaLocalBoundary implements ActionListener, MouseListener {
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 
-	}
-
-	private void pesquisarAction() {
-		if (txtNomeLocal.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Preencha o Nome do local e clique em Pesquisar");
-			txtNomeLocal.setBackground(Color.YELLOW);
-			return;
-		}
-
-		LocalEmprestimoEntity local = new LocalEmprestimoEntity();
-
-		local.setNomeLocal(txtNomeLocal.getText());
-
-		controllerLocal.setLocais(controllerLocal.selecionarPorNome(local));
-		tableLocais.revalidate();
-		tableLocais.repaint();
 	}
 
 	public static void main(String[] args) {
