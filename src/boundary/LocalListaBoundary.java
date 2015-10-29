@@ -25,7 +25,7 @@ import entity.LocalEmprestimoEntity;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 
-public class ListaLocalBoundary implements ActionListener, MouseListener {
+public class LocalListaBoundary implements ActionListener, MouseListener {
 
 	private long timeToDoubleClick = 0;
 
@@ -46,14 +46,14 @@ public class ListaLocalBoundary implements ActionListener, MouseListener {
 	JScrollPane scrollLocais = new JScrollPane();
 	private final JLabel label = new JLabel("");
 
-	public ListaLocalBoundary() {
+	public LocalListaBoundary() {
 		init();
 	}
 
 	public void init() {
 		panelPrincipal.setLayout(null);
 		frameLista.setIconImage(
-				Toolkit.getDefaultToolkit().getImage(ListaLocalBoundary.class.getResource("/resource/mini_logo.png")));
+				Toolkit.getDefaultToolkit().getImage(LocalListaBoundary.class.getResource("/resource/mini_logo.png")));
 
 		frameLista.setContentPane(panelPrincipal);
 		scrollLocais.setBounds(31, 145, 828, 312);
@@ -74,12 +74,12 @@ public class ListaLocalBoundary implements ActionListener, MouseListener {
 		panelPrincipal.add(txtNomeLocal);
 		txtNomeLocal.setFont(new Font("Calibri", 0, 18));
 		txtNomeLocal.setPreferredSize(new Dimension(300, 30));
-		btnBuscaLocais.setIcon(new ImageIcon(ListaLocalBoundary.class.getResource("/resource/search_32.png")));
+		btnBuscaLocais.setIcon(new ImageIcon(LocalListaBoundary.class.getResource("/resource/search_32.png")));
 		btnBuscaLocais.setBounds(477, 81, 190, 53);
 		panelPrincipal.add(btnBuscaLocais);
 		btnBuscaLocais.setFont(new Font("Calibri", 1, 18));
 		btnBuscaLocais.setPreferredSize(new Dimension(30, 30));
-		btnNovoLocal.setIcon(new ImageIcon(ListaLocalBoundary.class.getResource("/resource/add.png")));
+		btnNovoLocal.setIcon(new ImageIcon(LocalListaBoundary.class.getResource("/resource/add.png")));
 		btnNovoLocal.setBounds(677, 81, 182, 53);
 		panelPrincipal.add(btnNovoLocal);
 		btnNovoLocal.setFont(new Font("Calibri", 1, 18));
@@ -91,7 +91,7 @@ public class ListaLocalBoundary implements ActionListener, MouseListener {
 		lblLegenda.setFont(new Font("Calibri", 1, 18));
 		lblLegenda.setHorizontalAlignment(JLabel.CENTER);
 		lblLegenda.setVerticalAlignment(JLabel.TOP);
-		label.setIcon(new ImageIcon(ListaLocalBoundary.class.getResource("/resource/Logo Museu.png")));
+		label.setIcon(new ImageIcon(LocalListaBoundary.class.getResource("/resource/Logo Museu.png")));
 		label.setBounds(-39, 0, 328, 140);
 
 		panelPrincipal.add(label);
@@ -104,6 +104,7 @@ public class ListaLocalBoundary implements ActionListener, MouseListener {
 		frameLista.setVisible(true);
 		frameLista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frameLista.setResizable(false);
+		frameLista.setLocationRelativeTo(null);
 	}
 
 	@Override
@@ -189,7 +190,7 @@ public class ListaLocalBoundary implements ActionListener, MouseListener {
 	}
 
 	public static void main(String[] args) {
-		new ListaLocalBoundary();
+		new LocalListaBoundary();
 	}
 
 }

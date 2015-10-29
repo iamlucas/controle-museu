@@ -277,6 +277,7 @@ public class LocalEmprestimoBoundary implements ActionListener {
 		frameLocal.setVisible(true);
 		frameLocal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frameLocal.setResizable(false);
+		frameLocal.setLocationRelativeTo(null);
 	}
 
 	@Override

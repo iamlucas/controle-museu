@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 import control.LocalEmprestimoControl;
 import entity.LocalEmprestimoEntity;
 
-public class PesquisaLocalBoundary implements ActionListener, MouseListener {
+public class LocalPesquisaBoundary implements ActionListener, MouseListener {
 
 	private long timeToDoubleClick = 0;
 
@@ -43,12 +43,12 @@ public class PesquisaLocalBoundary implements ActionListener, MouseListener {
 
 	private EmprestimoBoundary emprestimo;
 
-	public PesquisaLocalBoundary(EmprestimoBoundary emprestimo) {
+	public LocalPesquisaBoundary(EmprestimoBoundary emprestimo) {
 		this.emprestimo = emprestimo;
 		init();
 	}
 
-	public PesquisaLocalBoundary() {
+	public LocalPesquisaBoundary() {
 		this(new EmprestimoBoundary());
 	}
 
@@ -94,6 +94,7 @@ public class PesquisaLocalBoundary implements ActionListener, MouseListener {
 		frameLista.setVisible(true);
 		frameLista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frameLista.setResizable(false);
+		frameLista.setLocationRelativeTo(null);
 
 		btnBuscaLocais.addActionListener(this);
 
@@ -174,7 +175,7 @@ public class PesquisaLocalBoundary implements ActionListener, MouseListener {
 	}
 
 	public static void main(String[] args) {
-		new PesquisaLocalBoundary();
+		new LocalPesquisaBoundary();
 	}
 
 }

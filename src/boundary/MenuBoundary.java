@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -23,7 +24,11 @@ public class MenuBoundary implements ActionListener {
 	private JButton btnManterExposicoes;
 	private JButton btnEmprestimos;
 
-	private ListaLocalBoundary listaLocal;
+	private LocalListaBoundary localBoundary;
+	private VisitanteBoundary visitanteBoundary;
+	private ObraBoundary obraBoundary;
+	private VendaIngressoBoundary vendaIngressoBoundary;
+	private EmprestimoBoundary emprestimoBoundary;
 
 	public MenuBoundary() {
 		frameLocal.setIconImage(Toolkit.getDefaultToolkit()
@@ -97,9 +102,9 @@ public class MenuBoundary implements ActionListener {
 		lblManterVisitantes.setBounds(27, 145, 140, 14);
 		panelPrincipal.add(lblManterVisitantes);
 
-		JLabel lblManterLocais = new JLabel("Manter Locais");
+		JLabel lblManterLocais = new JLabel("Manter Locais de Empréstimo");
 		lblManterLocais.setFont(new Font("Calibri", Font.BOLD, 18));
-		lblManterLocais.setBounds(286, 145, 133, 14);
+		lblManterLocais.setBounds(286, 145, 229, 14);
 		panelPrincipal.add(lblManterLocais);
 
 		JLabel lblManterObras = new JLabel("Manter Obras");
@@ -132,6 +137,8 @@ public class MenuBoundary implements ActionListener {
 		btnManterObras.addActionListener(this);
 		btnVendas.addActionListener(this);
 		btnVisitantes.addActionListener(this);
+
+		frameLocal.setLocationRelativeTo(null);
 	}
 
 	@Override
@@ -139,17 +146,17 @@ public class MenuBoundary implements ActionListener {
 		String comando = e.getActionCommand();
 
 		if ("Visitante".equals(comando))
-			System.out.println("Abrir");
+			visitanteBoundary = new VisitanteBoundary();
 		if ("Local".equals(comando))
-			listaLocal = new ListaLocalBoundary();
+			localBoundary = new LocalListaBoundary();
 		if ("Obra".equals(comando))
-			System.out.println("Abrir");
+			obraBoundary = new ObraBoundary();
 		if ("Venda".equals(comando))
-			System.out.println("Abrir");
+			vendaIngressoBoundary = new VendaIngressoBoundary();
 		if ("Exposicao".equals(comando))
-			System.out.println("Abrir");
+			JOptionPane.showMessageDialog(null, "Esta opção não se encontra disponível no momento.");
 		if ("Emprestimo".equals(comando))
-			System.out.println("Abrir");
+			emprestimoBoundary = new EmprestimoBoundary();
 
 	}
 

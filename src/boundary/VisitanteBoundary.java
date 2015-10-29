@@ -77,12 +77,13 @@ public class VisitanteBoundary implements ActionListener {
 	private JTextField txtId;
 
 	public VisitanteBoundary() {
-		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		janela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		janela.setBounds(400, 200, 641, 528);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		janela.setContentPane(contentPane);
 		contentPane.setLayout(null);
+		janela.setLocationRelativeTo(null);
 
 		formato = new SimpleDateFormat("dd/MM/yyyy");
 		data = new JLabel(formato.format(new Date()));
