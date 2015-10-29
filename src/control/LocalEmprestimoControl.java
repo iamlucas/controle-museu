@@ -1,4 +1,4 @@
-package controller;
+package control;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -10,16 +10,16 @@ import javax.swing.table.TableModel;
 import entity.LocalEmprestimoEntity;
 import infrastructure.LocalEmprestimoDAO;
 
-public class LocalEmprestimoController implements TableModel {
+public class LocalEmprestimoControl implements TableModel {
 
 	private List<LocalEmprestimoEntity> locais = new ArrayList<LocalEmprestimoEntity>();
 
-	public LocalEmprestimoController() {
+	public LocalEmprestimoControl() {
 		this.locais = this.selecionarTodos();
 	}
 
 	public static void main(String[] args) {
-		new LocalEmprestimoController().selecionarTodos();
+		new LocalEmprestimoControl().selecionarTodos();
 	}
 
 	public long adicionar(LocalEmprestimoEntity local) {

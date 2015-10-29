@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
-import controller.LocalEmprestimoController;
+import control.LocalEmprestimoControl;
 import entity.LocalEmprestimoEntity;
 
 import javax.swing.JOptionPane;
@@ -39,7 +39,7 @@ import javax.swing.JSeparator;
 
 public class LocalEmprestimoBoundary implements ActionListener {
 
-	LocalEmprestimoController controllerLocal = new LocalEmprestimoController();
+	LocalEmprestimoControl controllerLocal = new LocalEmprestimoControl();
 
 	JFrame frameLocal = new JFrame("Locais - Sistema de Controle de Museu");
 	JPanel panelPrincipal = new JPanel();

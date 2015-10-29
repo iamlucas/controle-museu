@@ -20,7 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import controller.LocalEmprestimoController;
+import control.LocalEmprestimoControl;
 import entity.LocalEmprestimoEntity;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
@@ -40,7 +40,7 @@ public class ListaLocalBoundary implements ActionListener, MouseListener {
 	JButton btnBuscaLocais = new JButton("Pesquisar Local");
 	JButton btnNovoLocal = new JButton("Novo Local");
 
-	LocalEmprestimoController controllerLocal = new LocalEmprestimoController();
+	LocalEmprestimoControl controllerLocal = new LocalEmprestimoControl();
 
 	JTable tableLocais = new JTable(controllerLocal);
 	JScrollPane scrollLocais = new JScrollPane();

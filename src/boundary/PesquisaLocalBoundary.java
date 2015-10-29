@@ -20,7 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import controller.LocalEmprestimoController;
+import control.LocalEmprestimoControl;
 import entity.LocalEmprestimoEntity;
 
 public class PesquisaLocalBoundary implements ActionListener, MouseListener {
@@ -36,7 +36,7 @@ public class PesquisaLocalBoundary implements ActionListener, MouseListener {
 	JTextField txtNomeLocal = new JTextField();
 	JButton btnBuscaLocais = new JButton("Pesquisar Local");
 
-	LocalEmprestimoController controllerLocal = new LocalEmprestimoController();
+	LocalEmprestimoControl controllerLocal = new LocalEmprestimoControl();
 
 	JTable tableLocais = new JTable(controllerLocal);
 	JScrollPane scrollLocais = new JScrollPane();
