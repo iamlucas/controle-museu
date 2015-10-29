@@ -151,7 +151,7 @@ public class VisitanteDAO {
 			PreparedStatement stmt = con.prepareStatement(query);
 
 			stmt.setString(1, "%" + cpf + "%");
-			System.out.println(stmt);
+
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				VisitanteEntity visitante = new VisitanteEntity();

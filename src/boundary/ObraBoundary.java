@@ -41,6 +41,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ImageIcon;
 
@@ -352,7 +353,12 @@ public class ObraBoundary implements ActionListener {
 		String cmd = e.getActionCommand();
 
 		if ("Salvar".equals(cmd)) {
-			control.adicionar(formToTelaObra());
+			long id = control.adicionar(formToTelaObra());
+			if (id > 0) {
+				JOptionPane.showMessageDialog(null, "Registro inserido com sucesso.");
+			} else {
+				JOptionPane.showMessageDialog(null, "Não foi possível inserir o registro.");
+			}
 		} else if ("Alterar".equals(cmd)) {
 			control.alterar(formToTelaObra());
 		} else if ("Empréstimo".equals(cmd)) {

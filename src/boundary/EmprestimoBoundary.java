@@ -1,8 +1,5 @@
 package boundary;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -44,7 +41,7 @@ public class EmprestimoBoundary {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		frame.setContentPane(contentPane);
 		contentPane.setLayout(null);
-		// frame.setLocationRelativeTo(null);
+		frame.setLocationRelativeTo(null);
 
 		JLabel lblNomeDaObra = new JLabel("Nome da Obra");
 		lblNomeDaObra.setHorizontalAlignment(SwingConstants.RIGHT);

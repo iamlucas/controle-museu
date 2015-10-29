@@ -41,7 +41,7 @@ public class MenuBoundary implements ActionListener {
 		label.setBounds(-47, 11, 338, 123);
 		panelPrincipal.add(label);
 
-		JLabel lblTelaPrincipal = new JLabel("Tela Principal");
+		JLabel lblTelaPrincipal = new JLabel("Tela Inicial");
 		lblTelaPrincipal.setFont(new Font("Calibri", Font.BOLD, 42));
 		lblTelaPrincipal.setBounds(302, 48, 297, 61);
 		panelPrincipal.add(lblTelaPrincipal);
@@ -83,7 +83,7 @@ public class MenuBoundary implements ActionListener {
 		panelPrincipal.add(btnManterExposicoes);
 
 		btnEmprestimos = new JButton(" ");
-		btnManterExposicoes.setActionCommand("Emprestimo");
+		btnEmprestimos.setActionCommand("Emprestimo");
 		btnEmprestimos.setIcon(new ImageIcon(MenuBoundary.class.getResource("/resource/menu_emprestimo.png")));
 		btnEmprestimos.setFont(new Font("Calibri", Font.BOLD, 18));
 		btnEmprestimos.setBounds(26, 390, 229, 171);
@@ -128,7 +128,7 @@ public class MenuBoundary implements ActionListener {
 		panelPrincipal.add(lblManterExposies);
 		frameLocal.setSize(800, 600);
 		frameLocal.setVisible(true);
-		frameLocal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frameLocal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frameLocal.setResizable(false);
 
 		btnEmprestimos.addActionListener(this);
