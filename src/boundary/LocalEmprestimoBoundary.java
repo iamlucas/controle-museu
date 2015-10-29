@@ -34,6 +34,8 @@ import java.text.ParseException;
 import java.util.List;
 
 import javax.swing.JTable;
+import java.awt.Font;
+import javax.swing.JSeparator;
 
 public class LocalEmprestimoBoundary implements ActionListener {
 
@@ -71,6 +73,7 @@ public class LocalEmprestimoBoundary implements ActionListener {
 	JButton btnPesquisar = new JButton("Pesquisar");
 
 	JTable tableLocais = new JTable(controllerLocal);
+	private final JLabel lblNewLabel = new JLabel("New label");
 
 	public LocalEmprestimoBoundary(LocalEmprestimoEntity l) {
 		init();
@@ -84,8 +87,12 @@ public class LocalEmprestimoBoundary implements ActionListener {
 	}
 
 	public void init() {
+		cmbUf.setFont(new Font("Calibri", Font.PLAIN, 16));
+		cmbUf.setBounds(150, 466, 58, 31);
 		cmbUf.setSelectedItem("SP");
+		radioAtivo.setFont(new Font("Calibri", Font.PLAIN, 16));
 		radioAtivo.setSelected(true);
+		radioDesativado.setFont(new Font("Calibri", Font.PLAIN, 16));
 		radioDesativado.setSelected(false);
 
 		/*
@@ -93,9 +100,6 @@ public class LocalEmprestimoBoundary implements ActionListener {
 		 */
 		panelPrincipal.setLayout(new BorderLayout());
 		panelButton.setLayout(new GridLayout(1, 4));
-		GridLayout formGridLayout = new GridLayout(14, 2);
-		formGridLayout.setVgap(3);
-		panelForm.setLayout(formGridLayout);
 		JPanel panelBorderLayout = new JPanel();
 		panelBorderLayout.setLayout(new BorderLayout());
 		panelBorderLayout.add(panelForm, BorderLayout.CENTER);
@@ -122,34 +126,103 @@ public class LocalEmprestimoBoundary implements ActionListener {
 		/*
 		 * Painel de Formulário
 		 */
-		panelForm.add(new JLabel("Código:"));
+		panelForm.setLayout(null);
+		JLabel label = new JLabel("Código:");
+		label.setFont(new Font("Calibri", Font.BOLD, 16));
+		label.setBounds(321, 74, 70, 31);
+		panelForm.add(label);
+		txtId.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtId.setEditable(false);
+		txtId.setBounds(408, 74, 114, 31);
 		panelForm.add(txtId);
-		panelForm.add(new JLabel("Nome do Local:"));
+		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lblNome.setBounds(63, 130, 99, 31);
+		panelForm.add(lblNome);
+		txtNomeLocal.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtNomeLocal.setBounds(160, 130, 442, 31);
 		panelForm.add(txtNomeLocal);
-		panelForm.add(new JLabel("Email:"));
+		JLabel label_2 = new JLabel("Email:");
+		label_2.setFont(new Font("Calibri", Font.PLAIN, 16));
+		label_2.setBounds(63, 172, 70, 31);
+		panelForm.add(label_2);
+		txtEmail.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtEmail.setBounds(160, 172, 442, 31);
 		panelForm.add(txtEmail);
-		panelForm.add(new JLabel("Telefone:"));
+		JLabel label_3 = new JLabel("Telefone:");
+		label_3.setFont(new Font("Calibri", Font.PLAIN, 16));
+		label_3.setBounds(63, 214, 79, 31);
+		panelForm.add(label_3);
+		txtTelefone.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtTelefone.setBounds(160, 214, 141, 31);
 		panelForm.add(txtTelefone);
-		panelForm.add(new JLabel("Responsável:"));
+		JLabel label_4 = new JLabel("Responsável:");
+		label_4.setFont(new Font("Calibri", Font.PLAIN, 16));
+		label_4.setBounds(311, 214, 99, 31);
+		panelForm.add(label_4);
+		txtResponsavel.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtResponsavel.setBounds(415, 214, 187, 31);
 		panelForm.add(txtResponsavel);
-		panelForm.add(new JLabel("CEP:"));
+		JLabel label_5 = new JLabel("CEP:");
+		label_5.setFont(new Font("Calibri", Font.PLAIN, 16));
+		label_5.setBounds(63, 296, 35, 31);
+		panelForm.add(label_5);
+		txtCep.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtCep.setBounds(150, 296, 113, 31);
 		panelForm.add(txtCep);
-		panelForm.add(new JLabel("Tipo de Logradouro: "));
+		JLabel lblTipoLogradouro = new JLabel("Tipo Logr.: ");
+		lblTipoLogradouro.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lblTipoLogradouro.setBounds(63, 338, 122, 31);
+		panelForm.add(lblTipoLogradouro);
+		cmbTipoLogradouro.setFont(new Font("Calibri", Font.PLAIN, 16));
+		cmbTipoLogradouro.setBounds(150, 338, 113, 31);
 		panelForm.add(cmbTipoLogradouro);
-		panelForm.add(new JLabel("Logradouro:"));
+		JLabel label_7 = new JLabel("Logradouro:");
+		label_7.setFont(new Font("Calibri", Font.PLAIN, 16));
+		label_7.setBounds(273, 338, 79, 31);
+		panelForm.add(label_7);
+		txtLogradouro.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtLogradouro.setBounds(369, 338, 233, 31);
 		panelForm.add(txtLogradouro);
-		panelForm.add(new JLabel("Numero:"));
+		JLabel label_8 = new JLabel("Numero:");
+		label_8.setFont(new Font("Calibri", Font.PLAIN, 16));
+		label_8.setBounds(63, 380, 58, 31);
+		panelForm.add(label_8);
+		txtNumero.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtNumero.setBounds(150, 380, 99, 31);
 		panelForm.add(txtNumero);
-		panelForm.add(new JLabel("Complemento:"));
+		JLabel label_9 = new JLabel("Complemento:");
+		label_9.setFont(new Font("Calibri", Font.PLAIN, 16));
+		label_9.setBounds(273, 380, 113, 31);
+		panelForm.add(label_9);
+		txtComplemento.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtComplemento.setBounds(369, 380, 233, 31);
 		panelForm.add(txtComplemento);
-		panelForm.add(new JLabel("Bairro:"));
+		JLabel label_10 = new JLabel("Bairro:");
+		label_10.setFont(new Font("Calibri", Font.PLAIN, 16));
+		label_10.setBounds(63, 422, 50, 31);
+		panelForm.add(label_10);
+		txtBairro.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtBairro.setBounds(150, 422, 198, 31);
 		panelForm.add(txtBairro);
-		panelForm.add(new JLabel("Cidade:"));
+		JLabel label_11 = new JLabel("Cidade:");
+		label_11.setFont(new Font("Calibri", Font.PLAIN, 16));
+		label_11.setBounds(359, 422, 50, 31);
+		panelForm.add(label_11);
+		txtCidade.setFont(new Font("Calibri", Font.PLAIN, 16));
+		txtCidade.setBounds(415, 422, 187, 31);
 		panelForm.add(txtCidade);
-		panelForm.add(new JLabel("UF:"));
+		JLabel label_12 = new JLabel("UF:");
+		label_12.setFont(new Font("Calibri", Font.PLAIN, 16));
+		label_12.setBounds(63, 466, 35, 31);
+		panelForm.add(label_12);
 		panelForm.add(cmbUf);
 
-		panelForm.add(new JLabel("Status"));
+		JLabel lblStatus = new JLabel("Status:");
+		lblStatus.setFont(new Font("Calibri", Font.PLAIN, 16));
+		lblStatus.setBounds(260, 466, 65, 31);
+		panelForm.add(lblStatus);
+		panelRadioButton.setBounds(321, 464, 179, 31);
 		panelRadioButton.setLayout(new BorderLayout());
 
 		ButtonGroup groupRadio = new ButtonGroup();
@@ -158,32 +231,49 @@ public class LocalEmprestimoBoundary implements ActionListener {
 		groupRadio.add(radioDesativado);
 
 		panelRadioButton.add(radioAtivo, BorderLayout.WEST);
-		panelRadioButton.add(radioDesativado, BorderLayout.EAST);
+		panelRadioButton.add(radioDesativado, BorderLayout.CENTER);
 		panelForm.add(panelRadioButton);
 
-		/*
-		 * Botões
-		 */
+		JLabel lblEndereo = new JLabel("Endere\u00E7o");
+		lblEndereo.setFont(new Font("Calibri", Font.BOLD, 18));
+		lblEndereo.setBounds(73, 256, 99, 14);
+		panelForm.add(lblEndereo);
 
-		// ImageIcon(getClass().getResource("/resource/save.png"));
-		// btnSalvar.setIcon(icone);
-		panelButton.add(btnSalvar);
-		btnSalvar.addActionListener(this);
+		JSeparator separator = new JSeparator();
+		separator.setBounds(63, 281, 553, 4);
+		panelForm.add(separator);
+		btnSalvar.setIcon(new ImageIcon(LocalEmprestimoBoundary.class.getResource("/resource/save_32.png")));
+		btnSalvar.setFont(new Font("Calibri", Font.BOLD, 18));
+		btnSalvar.setBounds(10, 524, 155, 59);
+		panelForm.add(btnSalvar);
+		btnAlterar.setIcon(new ImageIcon(LocalEmprestimoBoundary.class.getResource("/resource/edit_32.png")));
+		btnAlterar.setFont(new Font("Calibri", Font.BOLD, 18));
+		btnAlterar.setBounds(175, 524, 157, 59);
+		panelForm.add(btnAlterar);
+		btnRemover.setIcon(new ImageIcon(LocalEmprestimoBoundary.class.getResource("/resource/remove_32.png")));
+		btnRemover.setFont(new Font("Calibri", Font.BOLD, 18));
+		btnRemover.setBounds(339, 524, 155, 59);
+		panelForm.add(btnRemover);
+		btnPesquisar.setIcon(new ImageIcon(LocalEmprestimoBoundary.class.getResource("/resource/search_32.png")));
+		btnPesquisar.setFont(new Font("Calibri", Font.BOLD, 18));
+		btnPesquisar.setBounds(502, 524, 155, 59);
+		panelForm.add(btnPesquisar);
+		lblNewLabel.setIcon(new ImageIcon(LocalEmprestimoBoundary.class.getResource("/resource/Logo Museu.png")));
+		lblNewLabel.setBounds(-25, 0, 336, 134);
 
-		panelButton.add(btnAlterar);
-		btnAlterar.addActionListener(this);
-
-		panelButton.add(btnRemover);
-		btnRemover.addActionListener(this);
-
-		panelButton.add(btnPesquisar);
+		panelForm.add(lblNewLabel);
 		btnPesquisar.addActionListener(this);
+		btnRemover.addActionListener(this);
+		btnAlterar.addActionListener(this);
+		btnSalvar.addActionListener(this);
 
 		/*
 		 * Show JFrame
 		 */
+		frameLocal.setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(LocalEmprestimoBoundary.class.getResource("/resource/mini_logo.png")));
 		frameLocal.setContentPane(panelPrincipal);
-		frameLocal.setSize(500, 500);
+		frameLocal.setSize(678, 630);
 		frameLocal.setVisible(true);
 		frameLocal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frameLocal.setResizable(false);
