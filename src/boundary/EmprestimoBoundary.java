@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.toedter.calendar.JDateChooser;
+
 import entity.LocalEmprestimoEntity;
 
 import javax.swing.JLabel;
@@ -16,8 +18,9 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 
-public class EmprestimoBoundary extends JFrame {
+public class EmprestimoBoundary {
 
+	private JFrame frame = new JFrame("Emprestimos - Sistema Gerenciador de Museus.");
 	private JPanel contentPane;
 	private JTextField TxtObra;
 	private JTextField TxtNomeObra;
@@ -27,29 +30,21 @@ public class EmprestimoBoundary extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EmprestimoBoundary frame = new EmprestimoBoundary();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		new EmprestimoBoundary();
 	}
 
 	/**
 	 * Create the frame.
 	 */
 	public EmprestimoBoundary() {
-		setTitle("Empr\u00E9stimo");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 589, 375);
+		frame.setTitle("Empr\u00E9stimo");
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setBounds(100, 100, 589, 375);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		frame.setContentPane(contentPane);
 		contentPane.setLayout(null);
+		// frame.setLocationRelativeTo(null);
 
 		JLabel lblNomeDaObra = new JLabel("Nome da Obra");
 		lblNomeDaObra.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -138,6 +133,8 @@ public class EmprestimoBoundary extends JFrame {
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.setBounds(383, 305, 89, 23);
 		contentPane.add(btnExcluir);
+
+		frame.setVisible(true);
 	}
 
 	public void recebeLocalEmprestimo(LocalEmprestimoEntity local) {
