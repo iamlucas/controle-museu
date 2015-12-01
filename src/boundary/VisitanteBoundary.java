@@ -379,7 +379,7 @@ public class VisitanteBoundary implements ActionListener, FocusListener {
 			String s = txt_cpf.getText();
 
 			if (s.equals("")) {
-			} else if (!controller.validacaoCPF(s.replaceAll("\\-|\\.", ""))) {
+			} else if (!controller.validacaoCPF(s.replaceAll("\\-|\\.|_", ""))) {
 				JOptionPane.showMessageDialog(null, "CPF inválido, por favor informe um cpf válido.", "CPF inválido",
 						JOptionPane.ERROR_MESSAGE);
 				txt_cpf.requestFocusInWindow();

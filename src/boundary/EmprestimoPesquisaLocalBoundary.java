@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,39 +21,54 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import control.LocalEmprestimoControl;
+import control.EmprestimoPesquisaLocalEvTabela;
+import entity.EmprestimoEntity;
 import entity.LocalEmprestimoEntity;
 
-public class LocalPesquisaBoundary implements ActionListener, MouseListener {
+public class EmprestimoPesquisaLocalBoundary extends JDialog implements ActionListener, MouseListener {
 
 	private long timeToDoubleClick = 0;
+	private LocalEmprestimoEntity local = new LocalEmprestimoEntity();
 
-	JFrame frameLista = new JFrame("Selecione...");
-	JPanel panelPrincipal = new JPanel();
-	JPanel panelTop = new JPanel();
-	JPanel panelBottom = new JPanel();
-	JPanel panelTable = new JPanel();
+	private JFrame frameLista = new JFrame("Selecione...");
+	private JPanel panelPrincipal = new JPanel();
+	private JPanel panelTop = new JPanel();
+	private JPanel panelBottom = new JPanel();
+	private JPanel panelTable = new JPanel();
 
-	JTextField txtNomeLocal = new JTextField();
-	JButton btnBuscaLocais = new JButton("Pesquisar Local");
+	private JTextField txtNomeLocal = new JTextField();
+	private JButton btnBuscaLocais = new JButton("Pesquisar Local");
 
-	LocalEmprestimoControl controllerLocal = new LocalEmprestimoControl();
+	private EmprestimoPesquisaLocalEvTabela controllerLocal = new EmprestimoPesquisaLocalEvTabela();
 
-	JTable tableLocais = new JTable(controllerLocal);
-	JScrollPane scrollLocais = new JScrollPane();
+	private JTable tableLocais = new JTable(controllerLocal);
+	private JScrollPane scrollLocais = new JScrollPane();
 
 	private EmprestimoBoundary emprestimo;
+	private JTextField txtdestinatario;
+	
 
-	public LocalPesquisaBoundary(EmprestimoBoundary emprestimo) {
+	public LocalEmprestimoEntity getLocal() {
+		return local;
+	}
+
+	public void setLocal(LocalEmprestimoEntity local) {
+		this.local = local;
+	}
+
+	public EmprestimoPesquisaLocalBoundary(EmprestimoBoundary emprestimo, JTextField txtdestinatario) {
+		this.txtdestinatario = txtdestinatario;
 		this.emprestimo = emprestimo;
+		setModal(true);
 		init();
 	}
 
-	public LocalPesquisaBoundary() {
-		this(new EmprestimoBoundary());
+	public EmprestimoPesquisaLocalBoundary() {
+		setModal(true);
 	}
 
 	public void init() {
+		setModal(true);
 		panelPrincipal.setLayout(new BorderLayout());
 		panelBottom.setLayout(new GridLayout(1, 4));
 		panelTop.setLayout(new GridLayout(1, 2));
@@ -101,7 +117,7 @@ public class LocalPesquisaBoundary implements ActionListener, MouseListener {
 		tableLocais.addMouseListener(this);
 	}
 
-	@Override
+	
 	public void actionPerformed(ActionEvent evento) {
 		String acao = evento.getActionCommand();
 		if ("Pesquisar Local".equals(acao)) {
@@ -110,49 +126,50 @@ public class LocalPesquisaBoundary implements ActionListener, MouseListener {
 
 	}
 
-	@Override
+	
 	public void mouseClicked(MouseEvent e) {
-
-		if ((System.currentTimeMillis() - this.timeToDoubleClick) < 250) {
-
+		
 			int numRow = tableLocais.rowAtPoint(e.getPoint());
 
 			long id = Long.parseLong(String.valueOf(tableLocais.getValueAt(numRow, 0)));
 
-			LocalEmprestimoEntity local = new LocalEmprestimoEntity();
+			
 
 			local.setId(id);
 
 			local = controllerLocal.selecionarPorId(local);
+			
+			EmprestimoEntity emprestimoEntity = new EmprestimoEntity();
+			emprestimoEntity = emprestimo.getEmprestimoEntity();
+			
+			
+			emprestimoEntity.setLocal_emprestimo_id(local.getId());
+			emprestimoEntity.setLocatario(local.getNomeLocal());			
+			txtdestinatario.setText(local.getNomeLocal());			
 
-			// this.emprestimo.recebeLocalEmprestimo(local);
-
-			this.frameLista.setVisible(false);
-
-		}
-		this.timeToDoubleClick = System.currentTimeMillis();
+			this.frameLista.setVisible(false);									
 
 	}
 
-	@Override
+	
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
+	
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
+	
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
+	
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 
@@ -165,7 +182,7 @@ public class LocalPesquisaBoundary implements ActionListener, MouseListener {
 			return;
 		}
 
-		LocalEmprestimoEntity local = new LocalEmprestimoEntity();
+	
 
 		local.setNomeLocal(txtNomeLocal.getText());
 
@@ -175,7 +192,7 @@ public class LocalPesquisaBoundary implements ActionListener, MouseListener {
 	}
 
 	public static void main(String[] args) {
-		new LocalPesquisaBoundary();
+		new EmprestimoPesquisaLocalBoundary();
 	}
 
 }

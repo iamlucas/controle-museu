@@ -241,6 +241,8 @@ public class VisitanteControl implements TableModel {
 	}
 
 	public boolean validacaoCPF(String CPF) {
+		if ("".equals(CPF))
+			return true;
 
 		// considera-se erro CPF's formados por uma sequencia de numeros iguais
 		if (CPF.equals("00000000000") || CPF.equals("11111111111") || CPF.equals("22222222222")

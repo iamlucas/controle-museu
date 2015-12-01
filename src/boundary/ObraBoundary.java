@@ -17,7 +17,14 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.text.MaskFormatter;
 
-import control.ObraControl;
+
+
+
+
+
+
+
+
 
 import java.awt.Color;
 
@@ -31,6 +38,7 @@ import java.awt.Font;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import javax.swing.JDialog;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
@@ -45,27 +53,48 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ImageIcon;
 
+import com.toedter.calendar.JDateChooser;
+
+import control.ObraEvBtnAlterar;
+import control.ObraEvBtnDeletar;
+import control.ObraEvBtnSalvar;
+import control.ObraEvbtnPesquisarObra;
 import entity.ObraEntity;
 
-public class ObraBoundary implements ActionListener {
+public class ObraBoundary {
 
-	private JFrame frame = new JFrame("Obras - Sistema Gerenciador de Museus.");
+	private JFrame frame = new JFrame();
 	private JPanel contentPane;
 	private JTextField txtNomeObra;
 	private JTextField txtNomeAutor;
 	private JScrollPane scrollPane;
 	private JLabel lblDataObra;
-	private JFormattedTextField txtDataObra;
 	private JLabel lblTipoObra;
-	private JCheckBoxMenuItem checkDisponivel = new JCheckBoxMenuItem("Dispon\u00EDvel");
+	private JCheckBoxMenuItem checkDisponivel = new JCheckBoxMenuItem("DisponÃ­vel para emprÃ©stimo");
 	private JTextArea txtrBiografia = new JTextArea("Biografia");
+
+	private JButton BtnVoltar;
+	private JButton bntPesquisarAutor;
+	private JButton bntPesquisarObra;
+	private JButton bntDeletar;
+	private JButton bntAlterar;
+	private JButton bntSalvar;
 
 	private JComboBox comboTipoObra = new JComboBox();
 	private JComboBox comboCategoriaObra = new JComboBox();
 	private JComboBox comboLocalizacaoObra = new JComboBox();
 
-	private SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
-	private ObraControl control = new ObraControl();
+	private JDateChooser DataObra;
+	private ObraEntity obraEntity;
+	
+
+	public ObraEntity getObraEntity() {
+		return obraEntity;
+	}
+
+	public void setObraEntity(ObraEntity obraEntity) {
+		this.obraEntity = obraEntity;
+	}
 
 	/**
 	 * Launch the application.
@@ -80,290 +109,200 @@ public class ObraBoundary implements ActionListener {
 	 */
 	public ObraBoundary() {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setBounds(100, 100, 600, 400);
+		frame.setBounds(100, 100, 529, 439);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		frame.setContentPane(contentPane);
-		contentPane.setLayout(null);
 		frame.setLocationRelativeTo(null);
-
-		JButton bntAdicionarFoto = new JButton("Adicionar Foto");
-		bntAdicionarFoto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		bntAdicionarFoto.setBounds(10, 12, 180, 149);
-		contentPane.add(bntAdicionarFoto);
+		//frame.setModal(true);
+		frame.setTitle("Obras - Sistema Gerenciador de Museus.");
+		contentPane.setLayout(null);
 
 		txtNomeObra = new JTextField();
+		txtNomeObra.setBounds(111, 13, 337, 20);
 		txtNomeObra.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		txtNomeObra.setText("Nome da Obra");
-		txtNomeObra.setBounds(217, 12, 293, 20);
+		txtNomeObra.setText("");
 		contentPane.add(txtNomeObra);
 		txtNomeObra.setColumns(10);
-		txtNomeObra.addMouseListener(new MouseListener() {
-			public void mousePressed(MouseEvent e) {
-				txtNomeObra.setText("");
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		});
 
 		txtNomeAutor = new JTextField();
+		txtNomeAutor.setBounds(111, 44, 337, 20);
 		txtNomeAutor.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		txtNomeAutor.setText("Nome do Autor");
+		txtNomeAutor.setText("");
 		txtNomeAutor.setColumns(10);
-		txtNomeAutor.setBounds(217, 43, 293, 20);
 		contentPane.add(txtNomeAutor);
 
-		txtNomeAutor.addMouseListener(new MouseListener() {
-			public void mousePressed(MouseEvent e) {
-				txtNomeAutor.setText("");
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
 		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 97, 482, 64);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(217, 85, 293, 74);
 		contentPane.add(scrollPane);
-
 		scrollPane.setViewportView(txtrBiografia);
 		txtrBiografia.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		txtrBiografia.setText("Biografia");
-
-		txtrBiografia.addMouseListener(new MouseListener() {
-			public void mousePressed(MouseEvent e) {
-				txtrBiografia.setText("");
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		});
+		txtrBiografia.setText("");											
 
 		lblDataObra = new JLabel("Data da Obra:");
 		lblDataObra.setBounds(10, 172, 86, 23);
-		contentPane.add(lblDataObra);
-
-		txtDataObra = new JFormattedTextField();
-		txtDataObra.setHorizontalAlignment(SwingConstants.CENTER);
-
-		try {
-			MaskFormatter maskDate = new MaskFormatter("##/##/####");
-			maskDate.install(txtDataObra);
-			maskDate.setPlaceholderCharacter('_');
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-
-		txtDataObra.setBounds(104, 172, 86, 20);
-		contentPane.add(txtDataObra);
-		txtDataObra.setColumns(10);
-
-		txtDataObra.addMouseListener(new MouseListener() {
-			public void mousePressed(MouseEvent e) {
-				txtDataObra.setText("");
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		});
+		contentPane.add(lblDataObra);	
 
 		lblTipoObra = new JLabel("Tipo da Obra:");
 		lblTipoObra.setBounds(10, 211, 75, 23);
 		contentPane.add(lblTipoObra);
+		comboTipoObra.setBounds(104, 211, 177, 22);
 
 		comboTipoObra.setModel(
-				new DefaultComboBoxModel(new String[] { "Selecione", "Pintura", "Escultura", "Fotografia", "Livro" }));
-		comboTipoObra.setBounds(104, 211, 86, 22);
+				new DefaultComboBoxModel(new String[] { "Selecione", 
+						"Pintura", "Escultura", "Fotografia", "Livro", "Outro" }));
 		contentPane.add(comboTipoObra);
 
 		JLabel lblCategoriaObra = new JLabel("Categoria:");
 		lblCategoriaObra.setBounds(10, 245, 75, 23);
 		contentPane.add(lblCategoriaObra);
+		comboCategoriaObra.setBounds(104, 245, 177, 22);
 
 		comboCategoriaObra.setModel(
-				new DefaultComboBoxModel(new String[] { "Selecione", "Moderna", "Barroca", "Cubista", "Realista" }));
-		comboCategoriaObra.setBounds(104, 245, 86, 22);
+				new DefaultComboBoxModel(new String[] { "Selecione", "Moderna", "Barroca", "Cubista", "Realista", "Outro" }));
 		contentPane.add(comboCategoriaObra);
 
 		JLabel lblLocalizacaoObra = new JLabel("Localiza\u00E7\u00E3o:");
 		lblLocalizacaoObra.setBounds(10, 279, 75, 23);
 		contentPane.add(lblLocalizacaoObra);
+		comboLocalizacaoObra.setBounds(104, 279, 177, 22);
 
 		comboLocalizacaoObra.setModel(new DefaultComboBoxModel(
-				new String[] { "Selecione", "Salao Principal", "Primeiro Andar", "Subterr\u00E2neo" }));
-		comboLocalizacaoObra.setBounds(104, 279, 86, 22);
+				new String[] { "Selecione", "Salao Principal", "Primeiro Andar", "Subterr\u00E2neo", "Outro" }));
 		contentPane.add(comboLocalizacaoObra);
 
-		JLabel lblEmprestimo = new JLabel("Empr\u00E9stimo");
-		lblEmprestimo.setBackground(Color.DARK_GRAY);
-		lblEmprestimo.setVerticalAlignment(SwingConstants.TOP);
-		lblEmprestimo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEmprestimo.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblEmprestimo.setBounds(307, 170, 130, 31);
-		contentPane.add(lblEmprestimo);
-
-		JButton bntSalvar = new JButton("Salvar");
-		bntSalvar.setBounds(10, 313, 125, 37);
+		bntSalvar = new JButton("Salvar");
+		bntSalvar.setIcon(new ImageIcon(ObraBoundary.class.getResource("/resource/save_32.png")));
+		bntSalvar.setBounds(63, 352, 125, 37);
 		contentPane.add(bntSalvar);
 
-		JButton bntAlterar = new JButton("Alterar");
-		bntAlterar.setBounds(227, 313, 125, 37);
+		bntAlterar = new JButton("Alterar");
+		bntAlterar.setIcon(new ImageIcon(ObraBoundary.class.getResource("/resource/edit_32.png")));
+		bntAlterar.setBounds(198, 352, 125, 37);
 		contentPane.add(bntAlterar);
 
-		JButton bntEmprestimo = new JButton("Empréstimo");
-		bntEmprestimo.setBounds(449, 313, 125, 37);
-		contentPane.add(bntEmprestimo);
+		bntDeletar = new JButton("Deletar");
+		bntDeletar.setBounds(333, 352, 125, 37);
+		contentPane.add(bntDeletar);
 
-		JButton bntPesquisarObra = new JButton("");
+		bntPesquisarObra = new JButton("");
+		bntPesquisarObra.setBounds(454, 11, 37, 24);
 		bntPesquisarObra.setIcon(new ImageIcon(ObraBoundary.class.getResource("/resource/lupa_16.png")));
-		bntPesquisarObra.setBounds(516, 10, 37, 24);
 		contentPane.add(bntPesquisarObra);
 
-		JButton bntPesquisarAutor = new JButton("");
+		bntPesquisarAutor = new JButton("");
+		bntPesquisarAutor.setBounds(455, 43, 37, 24);
 		bntPesquisarAutor.setIcon(new ImageIcon(ObraBoundary.class.getResource("/resource/lupa_16.png")));
-		bntPesquisarAutor.setBounds(517, 42, 37, 24);
 		contentPane.add(bntPesquisarAutor);
-
-		checkDisponivel.setBounds(308, 211, 129, 22);
+		
+		BtnVoltar = new JButton("");
+		BtnVoltar.setIcon(new ImageIcon(ObraBoundary.class.getResource("/resource/remove_32.png")));
+		BtnVoltar.setBounds(449, 265, 43, 37);
+		contentPane.add(BtnVoltar);
+		
+		checkDisponivel.setSelected(true);
+		checkDisponivel.setBounds(301, 172, 191, 22);
 		contentPane.add(checkDisponivel);
-
-		bntSalvar.addActionListener(this);
-		bntAlterar.addActionListener(this);
-		bntEmprestimo.addActionListener(this);
+		
+		DataObra = new JDateChooser();
+		DataObra.setBounds(104, 172, 177, 20);
+		contentPane.add(DataObra);
 
 		frame.setVisible(true);
-	}
+		
+		JLabel lblNomeDaObra = new JLabel("Nome da Obra");
+		lblNomeDaObra.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNomeDaObra.setBounds(10, 17, 93, 14);
+		contentPane.add(lblNomeDaObra);
+		
+		JLabel lblNomeDoAutor = new JLabel("Nome do Autor");
+		lblNomeDoAutor.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNomeDoAutor.setBounds(10, 48, 93, 14);
+		contentPane.add(lblNomeDoAutor);
+				
+		JLabel lblNewLabel = new JLabel("Biografia");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(11, 79, 482, 14);
+		contentPane.add(lblNewLabel);
+		
+		// adicionando evento ao botÃ£o salvar
+		ObraEvBtnSalvar evsalvar = new ObraEvBtnSalvar(this, txtNomeObra, txtNomeAutor, 
+				checkDisponivel, txtrBiografia, comboTipoObra,
+					comboCategoriaObra, comboLocalizacaoObra, DataObra);
+		bntSalvar.addActionListener(evsalvar);
+		
+		// adicionando evento ao botao bntpesquisar obra
+		ObraEvbtnPesquisarObra EvPesquisarNome = 
+				new ObraEvbtnPesquisarObra(this, txtNomeObra,
+						txtNomeAutor, checkDisponivel, txtrBiografia,
+						comboTipoObra, comboCategoriaObra, comboLocalizacaoObra, DataObra,"Obra");
+		bntPesquisarObra.addActionListener(EvPesquisarNome);
+		
+		// adicionando evento ao botao btnpesquisar Autor
+		ObraEvbtnPesquisarObra EvPesquisarAutor = 
+				new ObraEvbtnPesquisarObra(this, txtNomeObra,
+						txtNomeAutor, checkDisponivel, txtrBiografia,
+						comboTipoObra, comboCategoriaObra, comboLocalizacaoObra, DataObra,"Autor");
+		bntPesquisarAutor.addActionListener(EvPesquisarAutor);
+		
+		// adicionando evento ao botÃ£o alterar
+		ObraEvBtnAlterar EvAlterar = new ObraEvBtnAlterar(
+				this, txtNomeObra, txtNomeAutor, checkDisponivel, txtrBiografia,
+				comboTipoObra, comboCategoriaObra, comboLocalizacaoObra, DataObra);				
+		bntAlterar.addActionListener(EvAlterar);
 
-	public ObraEntity formToTelaObra() {
-
-		ObraEntity obra = new ObraEntity();
-
-		try {
-			obra.setNomeObra(txtNomeObra.getText());
-			obra.setNomeAutor(txtNomeAutor.getText());
-			obra.setDataObra(data.parse(txtDataObra.getText()));
-			obra.setBiografia(txtrBiografia.getText());
-			obra.setTipoObra(comboTipoObra.getSelectedItem().toString());
-			obra.setCategoriaObra(comboCategoriaObra.getSelectedItem().toString());
-			obra.setLocalizacaoObra(comboLocalizacaoObra.getSelectedItem().toString());
-			obra.setDisponivel(checkDisponivel.isSelected());
-
-			// obra.setDispnivel(checkDisponivel);
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-		return obra;
-
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		String cmd = e.getActionCommand();
-
-		if ("Salvar".equals(cmd)) {
-			long id = control.adicionar(formToTelaObra());
-			if (id > 0) {
-				JOptionPane.showMessageDialog(null, "Registro inserido com sucesso.");
-			} else {
-				JOptionPane.showMessageDialog(null, "Não foi possível inserir o registro.");
+		// adicionando evento ao botÃ£o deletar
+		ObraEvBtnDeletar Evdeletar = new ObraEvBtnDeletar(this);
+		bntDeletar.addActionListener(Evdeletar);
+		
+		// adicionando evento ao botÃ£o voltar
+		ActionListener EvVoltar = new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				telaDefault();
 			}
-		} else if ("Alterar".equals(cmd)) {
-			control.alterar(formToTelaObra());
-		} else if ("Empréstimo".equals(cmd)) {
-			control.emprestimo(formToTelaObra());
-		}
+		};
+		BtnVoltar.addActionListener(EvVoltar);
+		
+		this.telaDefault();
 	}
-
+	
+	public void telaDefault(){
+		txtNomeAutor.setText("");
+		txtNomeObra.setText("");
+		txtrBiografia.setText("");
+		comboCategoriaObra.setSelectedItem("Selecione");
+		comboLocalizacaoObra.setSelectedItem("Selecione");
+		comboTipoObra.setSelectedItem("Selecione");
+		DataObra.setDate(null);
+		checkDisponivel.setSelected(true);
+		
+		bntAlterar.setEnabled(false);
+		bntDeletar.setEnabled(false);		
+		BtnVoltar.setEnabled(false);
+		bntSalvar.setEnabled(true);
+	    }
+	public void telaAlterar(){
+		bntAlterar.setEnabled(true);
+		bntDeletar.setEnabled(true);		
+		BtnVoltar.setEnabled(true);
+		bntSalvar.setEnabled(false);
+	}
+	public boolean validaCampos(){
+		if(
+			txtNomeAutor.getText().length() <= 0 ||
+			txtNomeObra.getText().length() <= 0 ||
+			txtrBiografia.getText().length() <= 0 ||
+			comboCategoriaObra.getSelectedItem().equals("Selecione") ||
+			comboLocalizacaoObra.getSelectedItem().equals("Selecione") ||
+			comboTipoObra.getSelectedItem().equals("Selecione") ||
+			DataObra.getDate() == null
+				){
+			JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos");
+			return false;
+		}
+		return true;
+	}
 }
+

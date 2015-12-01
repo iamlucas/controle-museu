@@ -29,6 +29,7 @@ public class MenuBoundary implements ActionListener {
 	private ObraBoundary obraBoundary;
 	private VendaIngressoBoundary vendaIngressoBoundary;
 	private EmprestimoBoundary emprestimoBoundary;
+	private ExposicaoBoundary exposicao;
 
 	public MenuBoundary() {
 		frameLocal.setIconImage(Toolkit.getDefaultToolkit()
@@ -155,8 +156,10 @@ public class MenuBoundary implements ActionListener {
 			vendaIngressoBoundary = new VendaIngressoBoundary();
 		if ("Exposicao".equals(comando))
 			JOptionPane.showMessageDialog(null, "Esta opção não se encontra disponível no momento.");
-		if ("Emprestimo".equals(comando))
+		if ("Emprestimo".equals(comando)){
 			emprestimoBoundary = new EmprestimoBoundary();
+			emprestimoBoundary.setVisible(true);
+			}
 
 	}
 

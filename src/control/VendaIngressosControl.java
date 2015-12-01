@@ -12,7 +12,7 @@ import infrastructure.VendaIngressosDAO;
 
 public class VendaIngressosControl {
 
-	public List<VendaIngressosEntity> Ingressos = new ArrayList<>();
+	public List<VendaIngressosEntity> Ingressos = new ArrayList<VendaIngressosEntity>();
 
 	public VendaIngressosControl() {
 

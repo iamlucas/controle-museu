@@ -12,14 +12,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.sun.javafx.css.CalculatedValue;
-
 import control.CarregaDados;
 import control.VendaIngressosControl;
 import entity.VendaIngressosEntity;
-import javafx.scene.GroupBuilder;
-import javafx.scene.control.ComboBox;
-
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -216,7 +211,7 @@ public class VendaIngressoBoundary {
 
 		rdbtnMaiorQue60.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				DesabilitaTipo();
@@ -227,7 +222,7 @@ public class VendaIngressoBoundary {
 
 		rdbtnMenorQue5.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				DesabilitaTipo();
@@ -239,7 +234,6 @@ public class VendaIngressoBoundary {
 
 		rdbtnEstudante.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				Desconto = controllerIngressos.CalculaMeiaEntrada(ValorObra[escolhaObra]);
@@ -249,7 +243,7 @@ public class VendaIngressoBoundary {
 		});
 		rdbtnProfessor.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				Desconto = controllerIngressos.CalculaMeiaEntrada(ValorObra[escolhaObra]);
@@ -259,7 +253,7 @@ public class VendaIngressoBoundary {
 		});
 		rdbtnOutros.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				Desconto = 0.0;
@@ -279,7 +273,7 @@ public class VendaIngressoBoundary {
 
 		ActionListener iniciaNovaVenda = new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				NovaVenda();
@@ -291,7 +285,7 @@ public class VendaIngressoBoundary {
 
 		ActionListener FinalizaVenda = new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				FinalizarVenda();

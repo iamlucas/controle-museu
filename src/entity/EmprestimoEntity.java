@@ -4,12 +4,28 @@ import java.util.Date;
 
 public class EmprestimoEntity {
 	private Date data;
-	private int obra_id;
-	private int emprestimo_id;
-	private int local_emprestimo_id;
+	private long obra_id;
+	private long emprestimo_id;
+	private long local_emprestimo_id;
 	private String locatario;
 	private String nomedaObra;
 	private String Destinatario;
+	private String devolvido;
+	public String getDevolvido() {
+		return devolvido;
+	}
+
+
+	public void setDevolvido(String devolvido) {
+		this.devolvido = devolvido;
+	}
+
+
+	public void setEmprestimo_id(long emprestimo_id) {
+		this.emprestimo_id = emprestimo_id;
+	}
+
+
 	private Date dataSaida;
 	private Date previsaoDevolucao;	
 	private Date dataDevolucao;	
@@ -25,12 +41,12 @@ public class EmprestimoEntity {
 	}
 
 
-	public int getObra_id() {
+	public long getObra_id() {
 		return obra_id;
 	}
 
 
-	public int getEmprestimo_id() {
+	public long getEmprestimo_id() {
 		return emprestimo_id;
 	}
 	
@@ -39,7 +55,7 @@ public class EmprestimoEntity {
 	}
 
 
-	public int getLocal_emprestimo_id() {
+	public long getLocal_emprestimo_id() {
 		return local_emprestimo_id;
 	}
 
@@ -78,8 +94,8 @@ public class EmprestimoEntity {
 	}
 
 
-	public void setObra_id(int obra_id) {
-		this.obra_id = obra_id;
+	public void setObra_id(long l) {
+		this.obra_id = l;
 	}
 
 
@@ -88,8 +104,8 @@ public class EmprestimoEntity {
 	}
 
 
-	public void setLocal_emprestimo_id(int local_emprestimo_id) {
-		this.local_emprestimo_id = local_emprestimo_id;
+	public void setLocal_emprestimo_id(long a) {
+		this.local_emprestimo_id = a;
 	}
 
 
