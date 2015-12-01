@@ -11,10 +11,13 @@ import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.DateFormat;
@@ -34,7 +37,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
 
-public class VisitanteBoundary implements ActionListener {
+public class VisitanteBoundary implements ActionListener, FocusListener {
 
 	private JFrame janela = new JFrame("Visitantes - Sistema de Controle de Museu");
 	private JPanel contentPane;
@@ -105,6 +108,8 @@ public class VisitanteBoundary implements ActionListener {
 		txt_cpf.setFont(new Font("Calibri", Font.PLAIN, 18));
 		txt_cpf.setBounds(205, 173, 341, 30);
 		txt_cpf.setVisible(true);
+		txt_cpf.addFocusListener(this);
+		txt_cpf.setName("cpf");
 		contentPane.add(txt_cpf);
 
 		nacionalidade = new JLabel("Nacionalidade:");
@@ -137,6 +142,8 @@ public class VisitanteBoundary implements ActionListener {
 		Jtxt_idade.setFont(new Font("Calibri", Font.PLAIN, 18));
 		Jtxt_idade.setBounds(205, 244, 341, 30);
 		Jtxt_idade.setVisible(true);
+		Jtxt_idade.addFocusListener(this);
+		Jtxt_idade.setName("idade");
 		contentPane.add(Jtxt_idade);
 
 		sexo = new JLabel("Sexo:");
@@ -302,10 +309,12 @@ public class VisitanteBoundary implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
 		if ("Salvar".equals(command)) {
-			long id = this.controller.adicionar(toVisitante());
-			txtId.setText(String.valueOf(id));
-			if (id > 0) {
-				JOptionPane.showMessageDialog(null, "O registro foi salvo.");
+			if (formValid()) {
+				long id = this.controller.adicionar(toVisitante());
+				txtId.setText(String.valueOf(id));
+				if (id > 0) {
+					JOptionPane.showMessageDialog(null, "O registro foi salvo.");
+				}
 			}
 		}
 		if ("Alterar".equals(command)) {
@@ -324,5 +333,70 @@ public class VisitanteBoundary implements ActionListener {
 
 	public static void main(String args[]) {
 		new VisitanteBoundary();
+	}
+
+	public boolean formValid() {
+
+		boolean valid = true;
+		StringBuffer sb = new StringBuffer();
+		sb.append("Ocorreram os seguintes erros:\n");
+		int i = 1;
+
+		if (txt_cpf.getText().equals("")) {
+			sb.append((i++) + ") O CPF não pode ser vazio\n");
+			valid = false;
+		}
+
+		if (!txt_cpf.getText().matches("[0-9]+")) {
+			sb.append((i++) + ") O CPF não pode ser vazio\n");
+			valid = false;
+		}
+
+		if (Jtxt_idade.getText().equals("")) {
+			sb.append((i++) + ") A Idade não pode ser vazio\n");
+			valid = false;
+		}
+
+		if (!valid)
+			JOptionPane.showMessageDialog(null, sb.toString(), "Erros", JOptionPane.ERROR_MESSAGE);
+
+		return valid;
+	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		Component c = e.getComponent();
+
+		String name = c.getName();
+
+		if ("cpf".equals(name)) {
+			String s = txt_cpf.getText();
+
+			if (s.equals("")) {
+			} else if (!controller.validacaoCPF(s.replaceAll("\\-|\\.", ""))) {
+				JOptionPane.showMessageDialog(null, "CPF inválido, por favor informe um cpf válido.", "CPF inválido",
+						JOptionPane.ERROR_MESSAGE);
+				txt_cpf.requestFocusInWindow();
+				txt_cpf.setText("");
+			}
+		} else if ("idade".equals(name)) {
+			String s = Jtxt_idade.getText();
+
+			if (s.equals("")) {
+
+			} else if (!s.matches("[0-9]+")) {
+				JOptionPane.showMessageDialog(null, "A idade só deve conter números.", "Idade Inválida",
+						JOptionPane.ERROR_MESSAGE);
+				Jtxt_idade.requestFocusInWindow();
+				Jtxt_idade.setText("");
+			}
+		}
+
 	}
 }

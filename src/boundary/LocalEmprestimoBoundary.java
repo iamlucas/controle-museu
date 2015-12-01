@@ -27,8 +27,12 @@ import java.awt.ItemSelectable;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.List;
@@ -37,7 +41,7 @@ import javax.swing.JTable;
 import java.awt.Font;
 import javax.swing.JSeparator;
 
-public class LocalEmprestimoBoundary implements ActionListener {
+public class LocalEmprestimoBoundary implements ActionListener, FocusListener {
 
 	LocalEmprestimoControl controllerLocal = new LocalEmprestimoControl();
 
@@ -94,6 +98,9 @@ public class LocalEmprestimoBoundary implements ActionListener {
 		radioAtivo.setSelected(true);
 		radioDesativado.setFont(new Font("Calibri", Font.PLAIN, 16));
 		radioDesativado.setSelected(false);
+
+		txtEmail.addFocusListener(this);
+		txtEmail.setName("email");
 
 		/*
 		 * Ajustando Paineis Iniciais
@@ -285,7 +292,9 @@ public class LocalEmprestimoBoundary implements ActionListener {
 
 		String acao = evento.getActionCommand();
 		if ("Salvar".equals(acao)) {
-			this.salvarAction();
+			if (formValid() == true) {
+				this.salvarAction();
+			}
 		} else if ("Alterar".equals(acao)) {
 			this.alterarAction();
 		} else if ("Remover".equals(acao)) {
@@ -428,4 +437,92 @@ public class LocalEmprestimoBoundary implements ActionListener {
 	public static void main(String[] args) {
 		new LocalEmprestimoBoundary();
 	}
+
+	public boolean formValid() {
+
+		boolean valid = true;
+		StringBuffer sb = new StringBuffer();
+		sb.append("Ocorreram os seguintes erros:\n");
+		int i = 1;
+
+		if (txtNomeLocal.getText().equals("")) {
+			sb.append((i++) + ") O Nome do Local não pode ser vazio\n");
+			valid = false;
+		}
+
+		if (txtEmail.getText().equals("")) {
+			sb.append((i++) + ") O Email não pode ser vazio\n");
+			valid = false;
+		}
+
+		if (txtTelefone.getText().equals("")) {
+			sb.append((i++) + ") O Telefone não pode ser vazio\n");
+			valid = false;
+		}
+
+		if (txtResponsavel.getText().equals("")) {
+			sb.append((i++) + ") O Responsável não pode ser vazio\n");
+			valid = false;
+		}
+
+		if (txtCep.getText() == "") {
+			sb.append((i++) + ") O CEP não pode ser vazio\n");
+			valid = false;
+		}
+
+		if (txtLogradouro.getText().equals("")) {
+			sb.append((i++) + ") O Logradouro não pode ser vazio\n");
+			valid = false;
+		}
+
+		if (txtNumero.getText().equals("")) {
+			sb.append((i++) + ") O Numero não pode ser vazio\n");
+			valid = false;
+		}
+
+		if (txtComplemento.getText().equals("")) {
+			sb.append((i++) + ") O Complemento não pode ser vazio\n");
+			valid = false;
+		}
+
+		if (txtBairro.getText().equals("")) {
+			sb.append((i++) + ") O Bairro não pode ser vazio\n");
+			valid = false;
+		}
+
+		if (txtCidade.getText().equals("")) {
+			sb.append((i++) + ") O Cidade não pode ser vazio\n");
+			valid = false;
+		}
+		if (!valid)
+			JOptionPane.showMessageDialog(null, sb.toString(), "Erros", JOptionPane.ERROR_MESSAGE);
+
+		return valid;
+	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		Component c = e.getComponent();
+
+		String name = c.getName();
+
+		if ("email".equals(name)) {
+			String s = txtEmail.getText();
+
+			if (s.equals("")) {
+			} else if (!s.matches("[a-z0-9]+@[a-z0-9]+\\.[a-z]+(\\.[a-z]+)?")) {
+				JOptionPane.showMessageDialog(null, "Email inválido, por favor realiza a correção.", "Email Inválido",
+						JOptionPane.ERROR_MESSAGE);
+				txtEmail.requestFocusInWindow();
+			}
+		}
+
+	}
+
 }
