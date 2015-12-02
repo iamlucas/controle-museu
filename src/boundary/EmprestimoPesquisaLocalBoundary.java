@@ -46,7 +46,6 @@ public class EmprestimoPesquisaLocalBoundary extends JDialog implements ActionLi
 
 	private EmprestimoBoundary emprestimo;
 	private JTextField txtdestinatario;
-	
 
 	public LocalEmprestimoEntity getLocal() {
 		return local;
@@ -105,19 +104,18 @@ public class EmprestimoPesquisaLocalBoundary extends JDialog implements ActionLi
 
 		panelTable.add(scrollLocais);
 
-		frameLista.setContentPane(panelPrincipal);
-		frameLista.setSize(800, 300);
-		frameLista.setVisible(true);
-		frameLista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frameLista.setResizable(false);
-		frameLista.setLocationRelativeTo(null);
+		setContentPane(panelPrincipal);
+		setSize(800, 300);
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
+		setLocationRelativeTo(null);
 
 		btnBuscaLocais.addActionListener(this);
 
 		tableLocais.addMouseListener(this);
 	}
 
-	
 	public void actionPerformed(ActionEvent evento) {
 		String acao = evento.getActionCommand();
 		if ("Pesquisar Local".equals(acao)) {
@@ -126,50 +124,42 @@ public class EmprestimoPesquisaLocalBoundary extends JDialog implements ActionLi
 
 	}
 
-	
 	public void mouseClicked(MouseEvent e) {
-		
-			int numRow = tableLocais.rowAtPoint(e.getPoint());
 
-			long id = Long.parseLong(String.valueOf(tableLocais.getValueAt(numRow, 0)));
+		int numRow = tableLocais.rowAtPoint(e.getPoint());
 
-			
+		long id = Long.parseLong(String.valueOf(tableLocais.getValueAt(numRow, 0)));
 
-			local.setId(id);
+		local.setId(id);
 
-			local = controllerLocal.selecionarPorId(local);
-			
-			EmprestimoEntity emprestimoEntity = new EmprestimoEntity();
-			emprestimoEntity = emprestimo.getEmprestimoEntity();
-			
-			
-			emprestimoEntity.setLocal_emprestimo_id(local.getId());
-			emprestimoEntity.setLocatario(local.getNomeLocal());			
-			txtdestinatario.setText(local.getNomeLocal());			
+		local = controllerLocal.selecionarPorId(local);
 
-			this.frameLista.setVisible(false);									
+		EmprestimoEntity emprestimoEntity = new EmprestimoEntity();
+		emprestimoEntity = emprestimo.getEmprestimoEntity();
+
+		emprestimoEntity.setLocal_emprestimo_id(local.getId());
+		emprestimoEntity.setLocatario(local.getNomeLocal());
+		txtdestinatario.setText(local.getNomeLocal());
+
+		this.frameLista.setVisible(false);
 
 	}
 
-	
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
-	
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
-	
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
-	
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 
@@ -181,8 +171,6 @@ public class EmprestimoPesquisaLocalBoundary extends JDialog implements ActionLi
 			txtNomeLocal.setBackground(Color.YELLOW);
 			return;
 		}
-
-	
 
 		local.setNomeLocal(txtNomeLocal.getText());
 
