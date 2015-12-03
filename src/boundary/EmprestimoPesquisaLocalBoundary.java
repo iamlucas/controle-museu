@@ -30,7 +30,6 @@ public class EmprestimoPesquisaLocalBoundary extends JDialog implements ActionLi
 	private long timeToDoubleClick = 0;
 	private LocalEmprestimoEntity local = new LocalEmprestimoEntity();
 
-	private JFrame frameLista = new JFrame("Selecione...");
 	private JPanel panelPrincipal = new JPanel();
 	private JPanel panelTop = new JPanel();
 	private JPanel panelBottom = new JPanel();
@@ -56,18 +55,13 @@ public class EmprestimoPesquisaLocalBoundary extends JDialog implements ActionLi
 	}
 
 	public EmprestimoPesquisaLocalBoundary(EmprestimoBoundary emprestimo, JTextField txtdestinatario) {
+		init();
 		this.txtdestinatario = txtdestinatario;
 		this.emprestimo = emprestimo;
-		setModal(true);
-		init();
-	}
 
-	public EmprestimoPesquisaLocalBoundary() {
-		setModal(true);
 	}
 
 	public void init() {
-		setModal(true);
 		panelPrincipal.setLayout(new BorderLayout());
 		panelBottom.setLayout(new GridLayout(1, 4));
 		panelTop.setLayout(new GridLayout(1, 2));
@@ -104,12 +98,13 @@ public class EmprestimoPesquisaLocalBoundary extends JDialog implements ActionLi
 
 		panelTable.add(scrollLocais);
 
+		setModal(true);
 		setContentPane(panelPrincipal);
 		setSize(800, 300);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setResizable(false);
-		setLocationRelativeTo(null);
+		// setLocationRelativeTo(null);
 
 		btnBuscaLocais.addActionListener(this);
 
@@ -125,7 +120,6 @@ public class EmprestimoPesquisaLocalBoundary extends JDialog implements ActionLi
 	}
 
 	public void mouseClicked(MouseEvent e) {
-
 		int numRow = tableLocais.rowAtPoint(e.getPoint());
 
 		long id = Long.parseLong(String.valueOf(tableLocais.getValueAt(numRow, 0)));
@@ -141,7 +135,7 @@ public class EmprestimoPesquisaLocalBoundary extends JDialog implements ActionLi
 		emprestimoEntity.setLocatario(local.getNomeLocal());
 		txtdestinatario.setText(local.getNomeLocal());
 
-		this.frameLista.setVisible(false);
+		this.setVisible(false);
 
 	}
 
@@ -177,10 +171,6 @@ public class EmprestimoPesquisaLocalBoundary extends JDialog implements ActionLi
 		controllerLocal.setLocais(controllerLocal.selecionarPorNome(local));
 		tableLocais.revalidate();
 		tableLocais.repaint();
-	}
-
-	public static void main(String[] args) {
-		new EmprestimoPesquisaLocalBoundary();
 	}
 
 }
