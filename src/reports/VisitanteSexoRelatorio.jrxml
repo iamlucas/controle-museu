@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="VisitanteSexoRelatorio" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="018da1f6-5e0b-42a5-85b5-444a49d94afd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="54"/>
+	<queryString>
+		<![CDATA[SELECT count(visitante_id), visitante_sexo FROM visitante GROUP BY visitante_sexo]]>
+	</queryString>
+	<field name="count(visitante_id)" class="java.lang.Long"/>
+	<field name="visitante_sexo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="71" splitType="Stretch">
+			<staticText>
+				<reportElement x="47" y="0" width="283" height="71" uuid="0e08e23d-b962-4928-99b1-f6425b60a8aa"/>
+				<textElement>
+					<font size="46" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gênero]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="270" splitType="Stretch">
+			<stackedBarChart>
+				<chart>
+					<reportElement x="0" y="0" width="802" height="270" uuid="0abcbd94-bf32-4aa7-9dc1-6eb35d89f504"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{visitante_sexo}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{visitante_sexo}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{count(visitante_id)}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</stackedBarChart>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

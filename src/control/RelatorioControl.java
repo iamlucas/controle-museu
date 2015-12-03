@@ -20,4 +20,34 @@ public class RelatorioControl {
 		return jrRS;
 	}
 
+	public JRResultSetDataSource dataFaixaSexo() throws JRException {
+		// estabelece conexão
+		RelatorioDAO dao = new RelatorioDAO();
+
+		// implementação da interface JRDataSource para DataSource ResultSet
+		JRResultSetDataSource jrRS = dao.selectBarraSexo();
+
+		return jrRS;
+	}
+
+	public JRResultSetDataSource dataFaixaNacionalidade() throws JRException {
+		// estabelece conexão
+		RelatorioDAO dao = new RelatorioDAO();
+
+		// implementação da interface JRDataSource para DataSource ResultSet
+		JRResultSetDataSource jrRS = dao.selectBarraNacionalidade();
+
+		return jrRS;
+	}
+
+	public JRResultSetDataSource dataVenda() throws JRException {
+		// estabelece conexão
+		RelatorioDAO dao = new RelatorioDAO();
+
+		// implementação da interface JRDataSource para DataSource ResultSet
+		JRResultSetDataSource jrRS = dao.selectBarraVendas();
+
+		return jrRS;
+	}
+
 }

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="VisitanteNacionalidadeRelatorio" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eea812d5-fd1a-4c35-8bec-bb5e0d1f2a92">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="75"/>
+	<queryString>
+		<![CDATA[SELECT count(visitante_id), visitante_nacionalidade FROM visitante GROUP BY visitante_nacionalidade]]>
+	</queryString>
+	<field name="count(visitante_id)" class="java.lang.Long"/>
+	<field name="visitante_nacionalidade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="416" height="79" uuid="bb91814e-9204-40ce-b58c-36d4a5fc22e2"/>
+				<textElement>
+					<font size="54" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nacionalidades]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="283" splitType="Stretch">
+			<stackedBarChart>
+				<chart>
+					<reportElement x="0" y="0" width="802" height="283" uuid="51e35dc1-c207-4c48-afc7-d4d05fff9b2b"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{visitante_nacionalidade}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{visitante_nacionalidade}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{count(visitante_id)}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</stackedBarChart>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
